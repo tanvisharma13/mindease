@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+@import "tailwindcss";
+
+:root{
+  --color-sage: #A8BFA3;
+  --color-sage-dark: #526B58;
+  --color-cream: #F7F5F0;
+  --color-warm-white: #FFFDF8;
+  --color-peach: #E8B9A8;
+  --color-lavender: #C9C4D9;
+  --color-forest: #26332A;
+}
+
+html,body,#root{height:100%;}
+body{
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--color-cream);
+  color: var(--color-forest);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.glass-card{
+  background: linear-gradient(180deg,var(--color-warm-white),rgba(255,255,255,0.85));
+  border: 1px solid rgba(82,107,88,0.06);
+  box-shadow: 0 8px 30px rgba(38,51,42,0.06);
+}
+
+.soft-rounded{border-radius:14px}
+.soft-rounded-lg{border-radius:20px}
+.btn-smooth{transition:transform .18s ease,box-shadow .18s ease}
+.btn-smooth:hover{transform:translateY(-3px)}
