@@ -113,7 +113,7 @@ function Chat() {
           </div>
         </div>
 
-        <div className="flex-1 bg-white border border-[#DCE3D9] rounded-3xl overflow-hidden flex flex-col min-h-[600px]">
+        <div className="flex-1 bg-white border border-[#DCE3D9] rounded-3xl overflow-hidden flex flex-col min-h-600px]">
           <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-5">
             {messages.map((message) => (
               <div
