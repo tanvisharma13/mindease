@@ -3,6 +3,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [wellnessOpen, setWellnessOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("mindease_user"));
@@ -12,8 +14,6 @@ function Navbar() {
     { name: "Chat", path: "/chat" },
     { name: "Mood", path: "/mood" },
     { name: "Journal", path: "/journal" },
-    { name: "Wellness", path: "/wellness" },
-    { name: "Help Someone", path: "/help-someone" },
   ];
 
   const handleLogout = () => {
@@ -37,6 +37,7 @@ function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
+
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
@@ -52,6 +53,78 @@ function Navbar() {
                 {item.name}
               </NavLink>
             ))}
+
+            {/* Wellness Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setWellnessOpen(true)}
+              onMouseLeave={() => setWellnessOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setWellnessOpen(!wellnessOpen)}
+                className="px-4 py-2.5 rounded-full text-sm text-[#53675A] hover:bg-[#E7EEE4] transition flex items-center gap-1.5"
+              >
+                Wellness
+                <span
+                  className={`text-xs transition-transform ${
+                    wellnessOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▾
+                </span>
+              </button>
+
+              {wellnessOpen && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64">
+                  <div className="bg-white border border-[#DCE3D9] rounded-2xl shadow-lg p-2">
+
+                    <Link
+                      to="/resources"
+                      onClick={() => setWellnessOpen(false)}
+                      className="block rounded-xl px-4 py-3 hover:bg-[#F0F4EE] transition"
+                    >
+                      <span className="block text-sm font-medium text-[#304737]">
+                        Resources
+                      </span>
+
+                      <span className="block text-xs text-[#7A887E] mt-1">
+                        Exercises, guides & practical tools
+                      </span>
+                    </Link>
+
+                    <Link
+                      to="/wellness"
+                      onClick={() => setWellnessOpen(false)}
+                      className="block rounded-xl px-4 py-3 hover:bg-[#F0F4EE] transition"
+                    >
+                      <span className="block text-sm font-medium text-[#304737]">
+                        Mental Health Library
+                      </span>
+
+                      <span className="block text-xs text-[#7A887E] mt-1">
+                        Understand what you may be experiencing
+                      </span>
+                    </Link>
+
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Help Someone */}
+            <NavLink
+              to="/help-someone"
+              className={({ isActive }) =>
+                `px-4 py-2.5 rounded-full text-sm transition ${
+                  isActive
+                    ? "bg-[#3F604B] text-white"
+                    : "text-[#53675A] hover:bg-[#E7EEE4]"
+                }`
+              }
+            >
+              Help Someone
+            </NavLink>
           </div>
 
           {/* Desktop Account */}
@@ -80,14 +153,14 @@ function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2.5 text-sm text-[#4A6051] hover:text-[#304737] transition"
+                  className="px-4 py-2.5 text-sm text-[#4A6051] hover:text-[#304737]"
                 >
                   Sign in
                 </Link>
 
                 <Link
                   to="/register"
-                  className="rounded-full bg-[#3F604B] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#314C3B] transition"
+                  className="rounded-full bg-[#3F604B] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#314C3B]"
                 >
                   Get started
                 </Link>
@@ -95,7 +168,7 @@ function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -109,7 +182,9 @@ function Navbar() {
         {/* Mobile Menu */}
         {menuOpen && (
           <div className="lg:hidden border-t border-[#E3E8E0] py-5">
+
             <div className="flex flex-col gap-1">
+
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}
@@ -126,11 +201,69 @@ function Navbar() {
                   {item.name}
                 </NavLink>
               ))}
+
+              {/* Mobile Wellness */}
+              <div className="mt-1">
+                <button
+                  type="button"
+                  onClick={() => setWellnessOpen(!wellnessOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
+                >
+                  Wellness
+                  <span>
+                    {wellnessOpen ? "−" : "+"}
+                  </span>
+                </button>
+
+                {wellnessOpen && (
+                  <div className="ml-4 mt-1 border-l border-[#D7DFD5] pl-3">
+
+                    <Link
+                      to="/resources"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setWellnessOpen(false);
+                      }}
+                      className="block px-4 py-3 rounded-xl text-sm text-[#607067] hover:bg-[#E7EEE4]"
+                    >
+                      Resources
+                    </Link>
+
+                    <Link
+                      to="/wellness"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setWellnessOpen(false);
+                      }}
+                      className="block px-4 py-3 rounded-xl text-sm text-[#607067] hover:bg-[#E7EEE4]"
+                    >
+                      Mental Health Library
+                    </Link>
+
+                  </div>
+                )}
+              </div>
+
+              <NavLink
+                to="/help-someone"
+                onClick={() => setMenuOpen(false)}
+                className={({ isActive }) =>
+                  `px-4 py-3 rounded-xl text-sm ${
+                    isActive
+                      ? "bg-[#3F604B] text-white"
+                      : "text-[#53675A] hover:bg-[#E7EEE4]"
+                  }`
+                }
+              >
+                Help Someone
+              </NavLink>
             </div>
 
+            {/* Mobile account */}
             <div className="mt-4 pt-4 border-t border-[#E3E8E0]">
               {user ? (
                 <div className="flex flex-col gap-2">
+
                   <Link
                     to="/profile"
                     onClick={() => setMenuOpen(false)}
@@ -145,9 +278,11 @@ function Navbar() {
                   >
                     Sign out
                   </button>
+
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">
+
                   <Link
                     to="/login"
                     onClick={() => setMenuOpen(false)}
@@ -163,9 +298,11 @@ function Navbar() {
                   >
                     Get started
                   </Link>
+
                 </div>
               )}
             </div>
+
           </div>
         )}
       </nav>
