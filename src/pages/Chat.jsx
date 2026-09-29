@@ -46,24 +46,107 @@ function Chat() {
         },
         body: JSON.stringify({
           message: trimmedMessage,
+      
+          history: messages.map((message) => ({
+            role: message.sender === "user" ? "user" : "assistant",
+            content: message.text,
+          })),
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to get AI response");
+        throw new Error("Failed to connect to MindEase");
       }
 
-      const data = await response.json();
+      if (!response.body) {
+        throw new Error("Streaming is not supported by this response");
+      }
 
-      const botResponse = {
-        id: Date.now() + 1,
-        sender: "bot",
-        text: data.response,
-      };
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
 
-      setMessages((previous) => [...previous, botResponse]);
+      const botMessageId = Date.now() + 1;
+
+      let fullResponse = "";
+      let botMessageCreated = false;
+
+      while (true) {
+        const { value, done } = await reader.read();
+
+        if (done) break;
+
+        const chunk = decoder.decode(value, {
+          stream: true,
+        });
+
+        if (!chunk) continue;
+
+        fullResponse += chunk;
+
+        // Create the bot message ONLY when
+        // the first actual response arrives.
+        if (!botMessageCreated) {
+          botMessageCreated = true;
+
+          setMessages((previous) => [
+            ...previous,
+            {
+              id: botMessageId,
+              sender: "bot",
+              text: fullResponse,
+            },
+          ]);
+
+          // Response has started, so remove typing dots.
+          setIsTyping(false);
+        } else {
+          setMessages((previous) =>
+            previous.map((message) =>
+              message.id === botMessageId
+                ? {
+                    ...message,
+                    text: fullResponse,
+                  }
+                : message
+            )
+          );
+        }
+      }
+
+      // Flush remaining decoder content.
+      const finalChunk = decoder.decode();
+
+      if (finalChunk) {
+        fullResponse += finalChunk;
+
+        if (!botMessageCreated) {
+          setMessages((previous) => [
+            ...previous,
+            {
+              id: botMessageId,
+              sender: "bot",
+              text: fullResponse,
+            },
+          ]);
+        } else {
+          setMessages((previous) =>
+            previous.map((message) =>
+              message.id === botMessageId
+                ? {
+                    ...message,
+                    text: fullResponse,
+                  }
+                : message
+            )
+          );
+        }
+      }
+
+      setIsTyping(false);
     } catch (error) {
       console.error("Chat error:", error);
+
+      setIsTyping(false);
 
       const errorMessage = {
         id: Date.now() + 1,
@@ -72,8 +155,6 @@ function Chat() {
       };
 
       setMessages((previous) => [...previous, errorMessage]);
-    } finally {
-      setIsTyping(false);
     }
   };
 
@@ -87,6 +168,8 @@ function Chat() {
   return (
     <div className="min-h-screen bg-[#F7F4EC] flex flex-col">
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-6 flex flex-col">
+
+        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <Link
@@ -107,14 +190,19 @@ function Chat() {
 
           <div className="hidden sm:flex items-center gap-2 rounded-full bg-[#E4EDE1] px-4 py-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#6C9675]" />
+
             <span className="text-xs text-[#4E6656]">
               Here with you
             </span>
           </div>
         </div>
 
-        <div className="flex-1 bg-white border border-[#DCE3D9] rounded-3xl overflow-hidden flex flex-col min-h-600px]">
+        {/* Chat */}
+        <div className="flex-1 bg-white border border-[#DCE3D9] rounded-3xl overflow-hidden flex flex-col min-h-[600px]">
+
+          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-5">
+
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -138,14 +226,17 @@ function Chat() {
               </div>
             ))}
 
+            {/* Simple typing indicator */}
             {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-[#EEF3EC] rounded-2xl rounded-bl-md px-5 py-4">
-                  <div className="flex gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-[#78907D] animate-bounce" />
-                    <span className="h-2 w-2 rounded-full bg-[#78907D] animate-bounce [animation-delay:150ms]" />
-                    <span className="h-2 w-2 rounded-full bg-[#78907D] animate-bounce [animation-delay:300ms]" />
-                  </div>
+              <div className="flex items-center justify-start pl-1">
+                <div className="flex items-center gap-1.5">
+
+                  <span className="w-2 h-2 bg-[#78907D] rounded-full animate-bounce" />
+
+                  <span className="w-2 h-2 bg-[#78907D] rounded-full animate-bounce [animation-delay:150ms]" />
+
+                  <span className="w-2 h-2 bg-[#78907D] rounded-full animate-bounce [animation-delay:300ms]" />
+
                 </div>
               </div>
             )}
@@ -153,8 +244,11 @@ function Chat() {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Input */}
           <div className="border-t border-[#E3E8E1] p-4 sm:p-5 bg-[#FCFCF9]">
+
             <div className="flex items-end gap-3">
+
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -163,7 +257,9 @@ function Chat() {
                 disabled={isTyping}
                 placeholder={
                   user
-                    ? `What’s on your mind, ${user.name.split(" ")[0]}?`
+                    ? `What’s on your mind, ${
+                        user.name.split(" ")[0]
+                      }?`
                     : "What’s on your mind?"
                 }
                 className="flex-1 resize-none rounded-2xl border border-[#D7DFD5] bg-white px-4 py-3 text-sm text-[#263D31] outline-none focus:border-[#52745D] focus:ring-2 focus:ring-[#52745D]/10 disabled:opacity-60"
@@ -176,12 +272,14 @@ function Chat() {
               >
                 {isTyping ? "Thinking..." : "Send"}
               </button>
+
             </div>
 
             <p className="text-[11px] text-[#879289] mt-3 text-center">
               MindEase is a wellness companion, not a replacement for
               professional mental-health care.
             </p>
+
           </div>
         </div>
       </main>
