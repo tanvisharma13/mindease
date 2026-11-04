@@ -1,68 +1,69 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../context/AuthContext";
+import { apiRequest } from "../services/api";
 
 function Profile() {
   const navigate = useNavigate();
 
-  const currentUser =
-    JSON.parse(localStorage.getItem("currentUser")) || null;
+  const { user, updateUser, logout } = useAuth();
 
-  const [name, setName] = useState(currentUser?.name || "");
-  const [email, setEmail] = useState(currentUser?.email || "");
+  const [name, setName] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
+
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [saving, setSaving] = useState(false);
 
-  const saveProfile = (event) => {
+  // Keep form fields synchronized with the logged-in user
+  useEffect(() => {
+    setName(user?.name || "");
+    setEmail(user?.email || "");
+  }, [user]);
+
+  // Save profile changes to MongoDB
+  const saveProfile = async (event) => {
     event.preventDefault();
 
+    setMessage("");
+    setError("");
+
     if (!name.trim() || !email.trim()) {
-      setMessage("Please complete all fields.");
+      setError("Please complete all fields.");
       return;
     }
 
-    const users =
-      JSON.parse(localStorage.getItem("users")) || [];
+    try {
+      setSaving(true);
 
-    const updatedUsers = users.map((user) => {
-      if (user.id === currentUser?.id) {
-        return {
-          ...user,
+      const response = await apiRequest("/auth/me", {
+        method: "PUT",
+        body: {
           name: name.trim(),
           email: email.trim(),
-        };
-      }
+        },
+      });
 
-      return user;
-    });
+      // Update AuthContext so Navbar also shows new details
+      updateUser(response.user);
 
-    localStorage.setItem(
-      "users",
-      JSON.stringify(updatedUsers)
-    );
-
-    const updatedCurrentUser = {
-      ...currentUser,
-      name: name.trim(),
-      email: email.trim(),
-    };
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(updatedCurrentUser)
-    );
-
-    setMessage("Your profile has been updated.");
-
-    setTimeout(() => {
-      setMessage("");
-    }, 2500);
+      setMessage("Your profile has been updated successfully.");
+    } catch (error) {
+      setError(error.message || "Unable to update your profile.");
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const logout = () => {
-    localStorage.removeItem("currentUser");
+  // Logout using AuthContext
+  const handleLogout = () => {
+    logout();
     navigate("/");
   };
 
-  if (!currentUser) {
+  if (!user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#f4f5ef] px-5">
         <div className="rounded-3xl border border-[#d8ddd7] bg-white p-10 text-center">
@@ -82,13 +83,13 @@ function Profile() {
     );
   }
 
-  const initial =
-    name?.charAt(0)?.toUpperCase() || "U";
+  const initial = name?.charAt(0)?.toUpperCase() || "U";
 
   return (
     <div className="min-h-screen bg-[#f4f5ef] px-5 py-14 text-[#18231f]">
       <div className="mx-auto max-w-3xl">
 
+        {/* Header */}
         <div className="mb-10">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#557a6a] text-3xl font-semibold text-white">
             {initial}
@@ -107,6 +108,7 @@ function Profile() {
           </p>
         </div>
 
+        {/* Profile form */}
         <section className="rounded-3xl border border-[#d8ddd7] bg-white p-6 shadow-sm md:p-9">
 
           <form onSubmit={saveProfile}>
@@ -118,9 +120,8 @@ function Profile() {
             <input
               type="text"
               value={name}
-              onChange={(event) =>
-                setName(event.target.value)
-              }
+              onChange={(event) => setName(event.target.value)}
+              required
               className="mt-2 h-14 w-full rounded-xl border border-[#d8ddd7] bg-[#fafbf8] px-4 outline-none focus:border-[#557a6a]"
             />
 
@@ -131,34 +132,49 @@ function Profile() {
             <input
               type="email"
               value={email}
-              onChange={(event) =>
-                setEmail(event.target.value)
-              }
+              onChange={(event) => setEmail(event.target.value)}
+              required
               className="mt-2 h-14 w-full rounded-xl border border-[#d8ddd7] bg-[#fafbf8] px-4 outline-none focus:border-[#557a6a]"
             />
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+
               <button
                 type="submit"
-                className="rounded-full bg-[#557a6a] px-7 py-3.5 font-semibold text-white hover:bg-[#365a4c]"
+                disabled={saving}
+                className="rounded-full bg-[#557a6a] px-7 py-3.5 font-semibold text-white hover:bg-[#365a4c] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Save changes
+                {saving ? "Saving..." : "Save changes"}
               </button>
 
               <button
                 type="button"
-                onClick={logout}
+                onClick={handleLogout}
                 className="rounded-full bg-[#f5e5e2] px-7 py-3.5 font-semibold text-[#a05046]"
               >
                 Log out
               </button>
+
             </div>
 
             {message && (
-              <p className="mt-5 text-sm font-medium text-[#365a4c]">
+              <p
+                role="status"
+                className="mt-5 text-sm font-medium text-[#365a4c]"
+              >
                 {message}
               </p>
             )}
+
+            {error && (
+              <p
+                role="alert"
+                className="mt-5 text-sm font-medium text-red-600"
+              >
+                {error}
+              </p>
+            )}
+
           </form>
         </section>
       </div>

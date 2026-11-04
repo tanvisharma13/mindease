@@ -1,8 +1,11 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Register() {
   const navigate = useNavigate();
+  const { register } = useAuth();
 
   const [form, setForm] = useState({
     name: "",
@@ -12,6 +15,7 @@ function Register() {
   });
 
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -22,7 +26,7 @@ function Register() {
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!form.name || !form.email || !form.password || !form.confirmPassword) {
@@ -40,31 +44,22 @@ function Register() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("mindease_users")) || [];
+    try {
+      setIsSubmitting(true);
+      setError("");
 
-    const existingUser = users.find(
-      (user) => user.email.toLowerCase() === form.email.toLowerCase()
-    );
+      await register(
+        form.name.trim(),
+        form.email.trim(),
+        form.password
+      );
 
-    if (existingUser) {
-      setError("An account with this email already exists.");
-      return;
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message || "Unable to create your account.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    const newUser = {
-      id: Date.now(),
-      name: form.name,
-      email: form.email,
-      password: form.password,
-      createdAt: new Date().toISOString(),
-    };
-
-    users.push(newUser);
-
-    localStorage.setItem("mindease_users", JSON.stringify(users));
-    localStorage.setItem("mindease_user", JSON.stringify(newUser));
-
-    navigate("/dashboard");
   };
 
   return (
@@ -177,9 +172,10 @@ function Register() {
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-[#3F604B] px-5 py-3.5 text-white font-medium transition hover:bg-[#314C3B]"
+              disabled={isSubmitting}
+              className="w-full rounded-xl bg-[#3F604B] px-5 py-3.5 text-white font-medium transition hover:bg-[#314C3B] disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Create account
+              {isSubmitting ? "Creating account..." : "Create account"}
             </button>
           </form>
 

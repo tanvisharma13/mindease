@@ -1,8 +1,11 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -10,16 +13,18 @@ function Login() {
   });
 
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!form.email || !form.password) {
@@ -27,22 +32,18 @@ function Login() {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("mindease_users")) || [];
+    try {
+      setIsSubmitting(true);
+      setError("");
 
-    const user = users.find(
-      (item) =>
-        item.email.toLowerCase() === form.email.toLowerCase() &&
-        item.password === form.password
-    );
+      await login(form.email, form.password);
 
-    if (!user) {
-      setError("Invalid email or password.");
-      return;
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message || "Invalid email or password.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    localStorage.setItem("mindease_user", JSON.stringify(user));
-
-    navigate("/dashboard");
   };
 
   return (
@@ -129,9 +130,10 @@ function Login() {
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-[#3F604B] px-5 py-3.5 text-white font-medium transition hover:bg-[#314C3B] active:scale-[0.99]"
+              disabled={isSubmitting}
+              className="w-full rounded-xl bg-[#3F604B] px-5 py-3.5 text-white font-medium transition hover:bg-[#314C3B] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Sign in
+              {isSubmitting ? "Signing in..." : "Sign in"}
             </button>
           </form>
 

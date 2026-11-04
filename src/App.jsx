@@ -1,7 +1,9 @@
+
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -22,24 +24,22 @@ export default function App() {
 
       <main className="flex-1 w-full">
         <Routes>
-          {/* Main pages */}
+          {/* Public pages */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/chat" element={<Chat />} />
-
-          {/* Wellness */}
-          <Route path="/mood" element={<MoodTracker />} />
-          <Route path="/journal" element={<Journal />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/wellness" element={<Wellness />} />
-
-          {/* Support */}
           <Route path="/help-someone" element={<HelpSomeone />} />
 
-          {/* User */}
-          <Route path="/profile" element={<Profile />} />
+          {/* Protected pages */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/mood" element={<MoodTracker />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Routes>
       </main>
 

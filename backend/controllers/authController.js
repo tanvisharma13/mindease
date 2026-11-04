@@ -19,58 +19,50 @@ const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check required fields
     if (!name || !email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Please provide name, email and password."
+        message: "Please provide name, email and password.",
       });
     }
 
-    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
       return res.status(400).json({
         success: false,
-        message: "Please enter a valid email address."
+        message: "Please enter a valid email address.",
       });
     }
 
-    // Check password length
     if (typeof password !== "string" || password.length < 6) {
       return res.status(400).json({
         success: false,
-        message: "Password must be at least 6 characters long."
+        message: "Password must be at least 6 characters long.",
       });
     }
 
-    // Normalize email
     const normalizedEmail = email.trim().toLowerCase();
 
-    // Check if user already exists
     const existingUser = await User.findOne({
-      email: normalizedEmail
+      email: normalizedEmail,
     });
 
     if (existingUser) {
       return res.status(409).json({
         success: false,
-        message: "User already exists with this email."
+        message: "User already exists with this email.",
       });
     }
 
-    // Hash password using bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create new user
     const user = await User.create({
       name: name.trim(),
       email: normalizedEmail,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
-    // Generate JWT
     const token = generateToken(user._id);
 
     return res.status(201).json({
@@ -80,15 +72,14 @@ const registerUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
-      }
+        email: user.email,
+      },
     });
-
   } catch (error) {
     if (error.code === 11000) {
       return res.status(409).json({
         success: false,
-        message: "Email is already registered."
+        message: "Email is already registered.",
       });
     }
 
@@ -96,7 +87,7 @@ const registerUser = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: "Server error during registration."
+      message: "Server error during registration.",
     });
   }
 };
@@ -108,27 +99,24 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check required fields
     if (!email || !password) {
       return res.status(400).json({
         success: false,
-        message: "Please provide email and password."
+        message: "Please provide email and password.",
       });
     }
 
-    // Find user
     const user = await User.findOne({
-      email: email.trim().toLowerCase()
+      email: email.trim().toLowerCase(),
     });
 
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password."
+        message: "Invalid email or password.",
       });
     }
 
-    // Compare password with stored hash
     const isMatch = await bcrypt.compare(
       password,
       user.password
@@ -137,11 +125,10 @@ const loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: "Invalid email or password."
+        message: "Invalid email or password.",
       });
     }
 
-    // Generate JWT
     const token = generateToken(user._id);
 
     return res.status(200).json({
@@ -151,16 +138,15 @@ const loginUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
-      }
+        email: user.email,
+      },
     });
-
   } catch (error) {
     console.error("Login error:", error.message);
 
     return res.status(500).json({
       success: false,
-      message: "Server error during login."
+      message: "Server error during login.",
     });
   }
 };
@@ -175,16 +161,93 @@ const getMe = async (req, res) => {
       user: {
         id: req.user._id,
         name: req.user.name,
-        email: req.user.email
-      }
+        email: req.user.email,
+      },
     });
-
   } catch (error) {
     console.error("Get user error:", error.message);
 
     return res.status(500).json({
       success: false,
-      message: "Server error while fetching user."
+      message: "Server error while fetching user.",
+    });
+  }
+};
+
+// ===============================
+// UPDATE LOGGED-IN USER
+// ===============================
+const updateMe = async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({
+        success: false,
+        message: "Name and email are required.",
+      });
+    }
+
+    const trimmedName = name.trim();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!trimmedName) {
+      return res.status(400).json({
+        success: false,
+        message: "Name cannot be empty.",
+      });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(normalizedEmail)) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter a valid email address.",
+      });
+    }
+
+    // Check whether another account uses this email
+    const existingUser = await User.findOne({
+      email: normalizedEmail,
+      _id: { $ne: req.user._id },
+    });
+
+    if (existingUser) {
+      return res.status(409).json({
+        success: false,
+        message: "This email is already being used by another account.",
+      });
+    }
+
+    // Update only the currently authenticated user's record
+    req.user.name = trimmedName;
+    req.user.email = normalizedEmail;
+
+    await req.user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile updated successfully.",
+      user: {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email,
+      },
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({
+        success: false,
+        message: "This email is already registered.",
+      });
+    }
+
+    console.error("Update profile error:", error.message);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to update profile.",
     });
   }
 };
@@ -195,5 +258,6 @@ const getMe = async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
-  getMe
+  getMe,
+  updateMe,
 };

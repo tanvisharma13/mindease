@@ -1,5 +1,7 @@
+
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -7,8 +9,10 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("mindease_user"));
+  const { user, logout, loading } = useAuth();
 
+  // Keep all feature links visible to everyone.
+  // ProtectedRoute will handle access when a visitor clicks them.
   const navItems = [
     { name: "Home", path: "/" },
     { name: "Chat", path: "/chat" },
@@ -17,10 +21,23 @@ function Navbar() {
   ];
 
   const handleLogout = () => {
-    localStorage.removeItem("mindease_user");
+    logout();
     setMenuOpen(false);
+    setWellnessOpen(false);
     navigate("/login");
   };
+
+  const closeMenus = () => {
+    setMenuOpen(false);
+    setWellnessOpen(false);
+  };
+
+  const navLinkClass = ({ isActive }) =>
+    `px-4 py-2.5 rounded-full text-sm transition ${
+      isActive
+        ? "bg-[#3F604B] text-white"
+        : "text-[#53675A] hover:bg-[#E7EEE4]"
+    }`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#E3E8E0] bg-[#F7F4EC]/95 backdrop-blur-md">
@@ -30,6 +47,7 @@ function Navbar() {
           {/* Logo */}
           <Link
             to="/"
+            onClick={closeMenus}
             className="text-2xl sm:text-3xl font-serif font-semibold tracking-tight text-[#365443]"
           >
             mindease
@@ -42,13 +60,7 @@ function Navbar() {
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={({ isActive }) =>
-                  `px-4 py-2.5 rounded-full text-sm transition ${
-                    isActive
-                      ? "bg-[#3F604B] text-white"
-                      : "text-[#53675A] hover:bg-[#E7EEE4]"
-                  }`
-                }
+                className={navLinkClass}
               >
                 {item.name}
               </NavLink>
@@ -63,6 +75,7 @@ function Navbar() {
               <button
                 type="button"
                 onClick={() => setWellnessOpen(!wellnessOpen)}
+                aria-expanded={wellnessOpen}
                 className="px-4 py-2.5 rounded-full text-sm text-[#53675A] hover:bg-[#E7EEE4] transition flex items-center gap-1.5"
               >
                 Wellness
@@ -81,13 +94,12 @@ function Navbar() {
 
                     <Link
                       to="/resources"
-                      onClick={() => setWellnessOpen(false)}
+                      onClick={closeMenus}
                       className="block rounded-xl px-4 py-3 hover:bg-[#F0F4EE] transition"
                     >
                       <span className="block text-sm font-medium text-[#304737]">
                         Resources
                       </span>
-
                       <span className="block text-xs text-[#7A887E] mt-1">
                         Exercises, guides & practical tools
                       </span>
@@ -95,13 +107,12 @@ function Navbar() {
 
                     <Link
                       to="/wellness"
-                      onClick={() => setWellnessOpen(false)}
+                      onClick={closeMenus}
                       className="block rounded-xl px-4 py-3 hover:bg-[#F0F4EE] transition"
                     >
                       <span className="block text-sm font-medium text-[#304737]">
                         Mental Health Library
                       </span>
-
                       <span className="block text-xs text-[#7A887E] mt-1">
                         Understand what you may be experiencing
                       </span>
@@ -115,13 +126,7 @@ function Navbar() {
             {/* Help Someone */}
             <NavLink
               to="/help-someone"
-              className={({ isActive }) =>
-                `px-4 py-2.5 rounded-full text-sm transition ${
-                  isActive
-                    ? "bg-[#3F604B] text-white"
-                    : "text-[#53675A] hover:bg-[#E7EEE4]"
-                }`
-              }
+              className={navLinkClass}
             >
               Help Someone
             </NavLink>
@@ -129,7 +134,11 @@ function Navbar() {
 
           {/* Desktop Account */}
           <div className="hidden lg:flex items-center gap-3">
-            {user ? (
+            {loading ? (
+              <span className="text-sm text-[#718078]">
+                Loading...
+              </span>
+            ) : user ? (
               <>
                 <Link
                   to="/profile"
@@ -143,6 +152,7 @@ function Navbar() {
                 </Link>
 
                 <button
+                  type="button"
                   onClick={handleLogout}
                   className="text-sm text-[#718078] hover:text-[#3F604B] transition"
                 >
@@ -174,6 +184,7 @@ function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden w-10 h-10 rounded-full border border-[#D5DED3] flex items-center justify-center text-[#3F604B]"
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
           >
             {menuOpen ? "✕" : "☰"}
           </button>
@@ -185,11 +196,12 @@ function Navbar() {
 
             <div className="flex flex-col gap-1">
 
+              {/* Main Navigation */}
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}
                   to={item.path}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenus}
                   className={({ isActive }) =>
                     `px-4 py-3 rounded-xl text-sm ${
                       isActive
@@ -207,6 +219,7 @@ function Navbar() {
                 <button
                   type="button"
                   onClick={() => setWellnessOpen(!wellnessOpen)}
+                  aria-expanded={wellnessOpen}
                   className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
                 >
                   Wellness
@@ -220,10 +233,7 @@ function Navbar() {
 
                     <Link
                       to="/resources"
-                      onClick={() => {
-                        setMenuOpen(false);
-                        setWellnessOpen(false);
-                      }}
+                      onClick={closeMenus}
                       className="block px-4 py-3 rounded-xl text-sm text-[#607067] hover:bg-[#E7EEE4]"
                     >
                       Resources
@@ -231,10 +241,7 @@ function Navbar() {
 
                     <Link
                       to="/wellness"
-                      onClick={() => {
-                        setMenuOpen(false);
-                        setWellnessOpen(false);
-                      }}
+                      onClick={closeMenus}
                       className="block px-4 py-3 rounded-xl text-sm text-[#607067] hover:bg-[#E7EEE4]"
                     >
                       Mental Health Library
@@ -244,9 +251,10 @@ function Navbar() {
                 )}
               </div>
 
+              {/* Help Someone */}
               <NavLink
                 to="/help-someone"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenus}
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-xl text-sm ${
                     isActive
@@ -259,20 +267,26 @@ function Navbar() {
               </NavLink>
             </div>
 
-            {/* Mobile account */}
+            {/* Mobile Account */}
             <div className="mt-4 pt-4 border-t border-[#E3E8E0]">
-              {user ? (
+
+              {loading ? (
+                <p className="px-4 py-3 text-sm text-[#718078]">
+                  Loading account...
+                </p>
+              ) : user ? (
                 <div className="flex flex-col gap-2">
 
                   <Link
                     to="/profile"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenus}
                     className="px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
                   >
                     My Profile
                   </Link>
 
                   <button
+                    type="button"
                     onClick={handleLogout}
                     className="text-left px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
                   >
@@ -285,7 +299,7 @@ function Navbar() {
 
                   <Link
                     to="/login"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenus}
                     className="px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
                   >
                     Sign in
@@ -293,7 +307,7 @@ function Navbar() {
 
                   <Link
                     to="/register"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenus}
                     className="px-4 py-3 rounded-xl bg-[#3F604B] text-white text-sm text-center"
                   >
                     Get started
@@ -301,8 +315,8 @@ function Navbar() {
 
                 </div>
               )}
-            </div>
 
+            </div>
           </div>
         )}
       </nav>
