@@ -1,8 +1,17 @@
+
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
+
+// Import Authentication Routes
+const authRoutes = require("./routes/authRoutes");
+
+// Import Wellness Routes
+const moodRoutes = require("./routes/moodRoutes");
+const journalRoutes = require("./routes/journalRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
@@ -28,6 +37,22 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Authentication API Routes
+app.use("/api/auth", authRoutes);
+
+// Wellness API Routes
+app.use("/api/moods", moodRoutes);
+app.use("/api/journal", journalRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+
+// Handle unknown routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "API route not found",
+  });
+});
+
 // Start server only after MongoDB connects
 const startServer = async () => {
   try {
@@ -37,7 +62,8 @@ const startServer = async () => {
       console.log(`MindEase backend running on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.error("Server could not start.");
+    console.error("Server could not start:", error.message);
+    process.exit(1);
   }
 };
 
