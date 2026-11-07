@@ -1,34 +1,49 @@
-import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Dashboard from './pages/Dashboard'
-import Chat from './pages/Chat'
-import MoodTracker from './pages/MoodTracker'
-import Journal from './pages/Journal'
-import Resources from './pages/Resources'
-import Profile from './pages/Profile'
 
-export default function App(){
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Chat from "./pages/Chat";
+import MoodTracker from "./pages/MoodTracker";
+import Journal from "./pages/Journal";
+import Resources from "./pages/Resources";
+import Profile from "./pages/Profile";
+import Wellness from "./pages/Wellness";
+import HelpSomeone from "./pages/HelpSomeone";
+
+export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
+
       <main className="flex-1 w-full">
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/chat" element={<Chat/>} />
-          <Route path="/mood" element={<MoodTracker/>} />
-          <Route path="/journal" element={<Journal/>} />
-          <Route path="/resources" element={<Resources/>} />
-          <Route path="/profile" element={<Profile/>} />
+          {/* Public pages */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/wellness" element={<Wellness />} />
+          <Route path="/help-someone" element={<HelpSomeone />} />
+
+          {/* Protected pages */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/mood" element={<MoodTracker />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Routes>
       </main>
+
       <Footer />
     </div>
-  )
+  );
 }
