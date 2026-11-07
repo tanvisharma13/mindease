@@ -141,7 +141,7 @@ function Navbar() {
             ) : user ? (
               <>
                 <Link
-                  to="/profile"
+                  to="/dashboard"
                   className="flex items-center gap-2 rounded-full border border-[#D3DDD1] px-4 py-2 text-sm text-[#4A6051] hover:bg-white transition"
                 >
                   <span className="w-7 h-7 rounded-full bg-[#DDE8DC] flex items-center justify-center text-xs font-medium">
@@ -278,7 +278,7 @@ function Navbar() {
                 <div className="flex flex-col gap-2">
 
                   <Link
-                    to="/profile"
+                    to="/dashboard"
                     onClick={closeMenus}
                     className="px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
                   >
