@@ -35,12 +35,12 @@ function Navbar() {
   const navLinkClass = ({ isActive }) =>
     `px-4 py-2.5 rounded-full text-sm transition ${
       isActive
-        ? "bg-[#3F604B] text-white"
-        : "text-[#53675A] hover:bg-[#E7EEE4]"
+        ? "nav-link-active"
+        : "nav-link"
     }`;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#E3E8E0] bg-[#F7F4EC]/95 backdrop-blur-md">
+    <header className="nav-header sticky top-0 z-50 border-b backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="h-20 flex items-center justify-between">
 
@@ -48,7 +48,7 @@ function Navbar() {
           <Link
             to="/"
             onClick={closeMenus}
-            className="text-2xl sm:text-3xl font-serif font-semibold tracking-tight text-[#365443]"
+            className="nav-logo text-2xl sm:text-3xl font-serif font-semibold tracking-tight"
           >
             mindease
           </Link>
@@ -76,7 +76,7 @@ function Navbar() {
                 type="button"
                 onClick={() => setWellnessOpen(!wellnessOpen)}
                 aria-expanded={wellnessOpen}
-                className="px-4 py-2.5 rounded-full text-sm text-[#53675A] hover:bg-[#E7EEE4] transition flex items-center gap-1.5"
+                className="nav-link px-4 py-2.5 rounded-full text-sm transition flex items-center gap-1.5"
               >
                 Wellness
                 <span
@@ -90,17 +90,17 @@ function Navbar() {
 
               {wellnessOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64">
-                  <div className="bg-white border border-[#DCE3D9] rounded-2xl shadow-lg p-2">
+                  <div className="nav-dropdown border rounded-2xl shadow-lg p-2">
 
                     <Link
                       to="/resources"
                       onClick={closeMenus}
-                      className="block rounded-xl px-4 py-3 hover:bg-[#F0F4EE] transition"
+                      className="nav-item block rounded-xl px-4 py-3 transition"
                     >
-                      <span className="block text-sm font-medium text-[#304737]">
+                      <span className="nav-dropdown-title block text-sm font-medium">
                         Resources
                       </span>
-                      <span className="block text-xs text-[#7A887E] mt-1">
+                      <span className="nav-dropdown-caption block text-xs mt-1">
                         Exercises, guides & practical tools
                       </span>
                     </Link>
@@ -108,12 +108,12 @@ function Navbar() {
                     <Link
                       to="/wellness"
                       onClick={closeMenus}
-                      className="block rounded-xl px-4 py-3 hover:bg-[#F0F4EE] transition"
+                      className="nav-item block rounded-xl px-4 py-3 transition"
                     >
-                      <span className="block text-sm font-medium text-[#304737]">
+                      <span className="nav-dropdown-title block text-sm font-medium">
                         Mental Health Library
                       </span>
-                      <span className="block text-xs text-[#7A887E] mt-1">
+                      <span className="nav-dropdown-caption block text-xs mt-1">
                         Understand what you may be experiencing
                       </span>
                     </Link>
@@ -135,16 +135,16 @@ function Navbar() {
           {/* Desktop Account */}
           <div className="hidden lg:flex items-center gap-3">
             {loading ? (
-              <span className="text-sm text-[#718078]">
+              <span className="nav-action text-sm">
                 Loading...
               </span>
             ) : user ? (
               <>
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-2 rounded-full border border-[#D3DDD1] px-4 py-2 text-sm text-[#4A6051] hover:bg-white transition"
+                  className="nav-account flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition"
                 >
-                  <span className="w-7 h-7 rounded-full bg-[#DDE8DC] flex items-center justify-center text-xs font-medium">
+                  <span className="nav-avatar w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium">
                     {user.name?.charAt(0).toUpperCase()}
                   </span>
 
@@ -154,7 +154,7 @@ function Navbar() {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="text-sm text-[#718078] hover:text-[#3F604B] transition"
+                  className="nav-action text-sm transition"
                 >
                   Sign out
                 </button>
@@ -163,14 +163,14 @@ function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2.5 text-sm text-[#4A6051] hover:text-[#304737]"
+                  className="nav-signin px-4 py-2.5 text-sm"
                 >
                   Sign in
                 </Link>
 
                 <Link
                   to="/register"
-                  className="rounded-full bg-[#3F604B] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#314C3B]"
+                  className="btn btn-primary px-5 py-2.5"
                 >
                   Get started
                 </Link>
@@ -182,7 +182,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden w-10 h-10 rounded-full border border-[#D5DED3] flex items-center justify-center text-[#3F604B]"
+            className="nav-mobile-toggle lg:hidden w-10 h-10 rounded-full border flex items-center justify-center"
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
           >
@@ -192,7 +192,7 @@ function Navbar() {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="lg:hidden border-t border-[#E3E8E0] py-5">
+          <div className="nav-mobile-separator lg:hidden border-t py-5">
 
             <div className="flex flex-col gap-1">
 
@@ -205,8 +205,8 @@ function Navbar() {
                   className={({ isActive }) =>
                     `px-4 py-3 rounded-xl text-sm ${
                       isActive
-                        ? "bg-[#3F604B] text-white"
-                        : "text-[#53675A] hover:bg-[#E7EEE4]"
+                        ? "nav-link-active"
+                        : "nav-link"
                     }`
                   }
                 >
@@ -220,7 +220,7 @@ function Navbar() {
                   type="button"
                   onClick={() => setWellnessOpen(!wellnessOpen)}
                   aria-expanded={wellnessOpen}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
+                  className="nav-link nav-item w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm"
                 >
                   Wellness
                   <span>
@@ -229,12 +229,12 @@ function Navbar() {
                 </button>
 
                 {wellnessOpen && (
-                  <div className="ml-4 mt-1 border-l border-[#D7DFD5] pl-3">
+                  <div className="nav-mobile-submenu ml-4 mt-1 border-l pl-3">
 
                     <Link
                       to="/resources"
                       onClick={closeMenus}
-                      className="block px-4 py-3 rounded-xl text-sm text-[#607067] hover:bg-[#E7EEE4]"
+                      className="nav-link nav-item block px-4 py-3 rounded-xl text-sm"
                     >
                       Resources
                     </Link>
@@ -242,7 +242,7 @@ function Navbar() {
                     <Link
                       to="/wellness"
                       onClick={closeMenus}
-                      className="block px-4 py-3 rounded-xl text-sm text-[#607067] hover:bg-[#E7EEE4]"
+                      className="nav-link nav-item block px-4 py-3 rounded-xl text-sm"
                     >
                       Mental Health Library
                     </Link>
@@ -258,8 +258,8 @@ function Navbar() {
                 className={({ isActive }) =>
                   `px-4 py-3 rounded-xl text-sm ${
                     isActive
-                      ? "bg-[#3F604B] text-white"
-                      : "text-[#53675A] hover:bg-[#E7EEE4]"
+                      ? "nav-link-active"
+                      : "nav-link"
                   }`
                 }
               >
@@ -268,10 +268,10 @@ function Navbar() {
             </div>
 
             {/* Mobile Account */}
-            <div className="mt-4 pt-4 border-t border-[#E3E8E0]">
+            <div className="nav-mobile-separator mt-4 pt-4 border-t">
 
               {loading ? (
-                <p className="px-4 py-3 text-sm text-[#718078]">
+                <p className="nav-action px-4 py-3 text-sm">
                   Loading account...
                 </p>
               ) : user ? (
@@ -280,7 +280,7 @@ function Navbar() {
                   <Link
                     to="/dashboard"
                     onClick={closeMenus}
-                    className="px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
+                    className="nav-link nav-item px-4 py-3 rounded-xl text-sm"
                   >
                     My Profile
                   </Link>
@@ -288,7 +288,7 @@ function Navbar() {
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="text-left px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
+                    className="nav-link nav-item text-left px-4 py-3 rounded-xl text-sm"
                   >
                     Sign out
                   </button>
@@ -300,7 +300,7 @@ function Navbar() {
                   <Link
                     to="/login"
                     onClick={closeMenus}
-                    className="px-4 py-3 rounded-xl text-sm text-[#53675A] hover:bg-[#E7EEE4]"
+                    className="nav-link nav-item px-4 py-3 rounded-xl text-sm"
                   >
                     Sign in
                   </Link>
@@ -308,7 +308,7 @@ function Navbar() {
                   <Link
                     to="/register"
                     onClick={closeMenus}
-                    className="px-4 py-3 rounded-xl bg-[#3F604B] text-white text-sm text-center"
+                    className="btn btn-primary px-4 py-3 text-sm text-center"
                   >
                     Get started
                   </Link>

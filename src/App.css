@@ -4,7 +4,7 @@
   border-radius: 5px;
   color: var(--accent);
   background: var(--accent-bg);
-  border: 2px solid transparent;
+  border: 2px solid var(--color-transparent);
   transition: border-color 0.3s;
   margin-bottom: 24px;
 
@@ -170,7 +170,7 @@
     content: '';
     position: absolute;
     top: -4.5px;
-    border: 5px solid transparent;
+    border: 5px solid var(--color-transparent);
   }
 
   &::before {

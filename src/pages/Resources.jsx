@@ -427,13 +427,25 @@ function Resources() {
     return "";
   };
 
+  const getBreathingAnimationClass = () => {
+    if (currentPhase?.motion === "grow") {
+      return `breathing-grow-${currentPhase.duration}`;
+    }
+
+    if (currentPhase?.motion === "shrink") {
+      return `breathing-shrink-${currentPhase.duration}`;
+    }
+
+    return "";
+  };
+
   return (
-    <div className="min-h-screen bg-[#F7F4EC] px-5 py-12 text-[#263D31] sm:px-8">
+    <div className="min-h-screen page px-5 py-12 text-ink sm:px-8">
       <main className="mx-auto max-w-6xl">
 
         {/* Header */}
         <section className="mb-10 max-w-3xl">
-          <p className="mb-3 text-sm font-medium text-[#52745D]">
+          <p className="mb-3 text-sm font-medium text-brand">
             Take a moment for yourself
           </p>
 
@@ -441,7 +453,7 @@ function Resources() {
             Wellness resources
           </h1>
 
-          <p className="mt-4 text-base leading-8 text-[#718078] md:text-lg">
+          <p className="mt-4 text-base leading-8 text-muted md:text-lg">
             You don't have to figure everything out at once.
             Explore gentle exercises to help you pause, breathe,
             reflect and reconnect with yourself.
@@ -450,11 +462,11 @@ function Resources() {
 
         {/* Quick Picks */}
         <section className="mb-10">
-          <h2 className="font-serif text-2xl text-[#304737]">
+          <h2 className="font-serif text-2xl text-ink">
             What do you need right now?
           </h2>
 
-          <p className="mt-2 text-sm text-[#718078]">
+          <p className="mt-2 text-sm text-muted">
             Choose what feels closest to how you're feeling.
           </p>
 
@@ -470,8 +482,8 @@ function Resources() {
                   aria-pressed={active}
                   className={`rounded-full border px-4 py-3 text-sm transition ${
                     active
-                      ? "border-[#3F604B] bg-[#3F604B] text-white"
-                      : "border-[#DCE3D9] bg-white text-[#3F604B] hover:border-[#779783]"
+                      ? "border-brand btn-primary"
+                      : "border-line surface-card text-brand hover-line-strong"
                   }`}
                 >
                   <span className="mr-2">{pick.icon}</span>
@@ -484,7 +496,7 @@ function Resources() {
 
         {/* Categories */}
         <section className="mb-8">
-          <h2 className="mb-4 font-serif text-xl text-[#304737]">
+          <h2 className="mb-4 font-serif text-xl text-ink">
             Explore by category
           </h2>
 
@@ -497,8 +509,8 @@ function Resources() {
                 aria-pressed={category === item}
                 className={`rounded-full border px-5 py-2.5 text-sm transition ${
                   category === item
-                    ? "border-[#3F604B] bg-[#3F604B] text-white"
-                    : "border-[#DCE3D9] bg-white text-[#60766e] hover:border-[#3F604B]"
+                    ? "border-brand btn-primary"
+                    : "border-line surface-card text-muted hover-line-strong"
                 }`}
               >
                 {item}
@@ -510,7 +522,7 @@ function Resources() {
         {/* Resource Cards */}
         <section>
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-serif text-2xl text-[#304737]">
+            <h2 className="font-serif text-2xl text-ink">
               {quickPick
                 ? "Suggested for you"
                 : category === "All"
@@ -518,7 +530,7 @@ function Resources() {
                   : category}
             </h2>
 
-            <span className="text-sm text-[#8A968D]">
+            <span className="text-sm text-faint">
               {filteredResources.length} exercises
             </span>
           </div>
@@ -528,42 +540,42 @@ function Resources() {
               {filteredResources.map((resource) => (
                 <article
                   key={resource.id}
-                  className="flex min-h-[310px] flex-col rounded-3xl border border-[#DCE3D9] bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
+                  className="flex min-h-[310px] flex-col rounded-3xl border border-line surface-card p-6 transition hover:-translate-y-1 hover:shadow-lg"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EAF0E8] text-2xl">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl tile-brand text-2xl">
                       {resource.icon}
                     </div>
 
-                    <span className="rounded-full bg-[#F3F6F0] px-3 py-1.5 text-xs text-[#52745D]">
+                    <span className="rounded-full tile-brand px-3 py-1.5 text-xs text-brand">
                       {resource.time}
                     </span>
                   </div>
 
                   <div className="mt-6 flex items-center justify-between gap-2">
-                    <p className="text-sm font-medium text-[#52745D]">
+                    <p className="text-sm font-medium text-brand">
                       {resource.category}
                     </p>
 
                     {resource.badge && (
-                      <span className="rounded-full bg-[#DDE8DC] px-3 py-1 text-xs font-medium text-[#365342]">
+                      <span className="accent-badge px-3 py-1 text-xs font-medium">
                         {resource.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="mt-3 font-serif text-2xl text-[#304737]">
+                  <h3 className="mt-3 font-serif text-2xl text-ink">
                     {resource.title}
                   </h3>
 
-                  <p className="mt-3 flex-1 text-sm leading-7 text-[#718078]">
+                  <p className="mt-3 flex-1 text-sm leading-7 text-muted">
                     {resource.description}
                   </p>
 
                   <button
                     type="button"
                     onClick={() => openResource(resource)}
-                    className="mt-6 w-full rounded-full bg-[#3F604B] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#314C3B]"
+                    className="mt-6 w-full rounded-full btn-primary px-5 py-3 text-sm font-semibold  transition "
                   >
                     {resource.type === "breathing" || resource.type === "box"
                       ? "Start breathing"
@@ -575,14 +587,14 @@ function Resources() {
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-[#DCE3D9] bg-white p-10 text-center">
+            <div className="rounded-3xl border border-line surface-card p-10 text-center">
               <p className="text-3xl">🌿</p>
 
-              <h3 className="mt-4 font-serif text-xl text-[#304737]">
+              <h3 className="mt-4 font-serif text-xl text-ink">
                 No exercises found
               </h3>
 
-              <p className="mt-2 text-sm text-[#718078]">
+              <p className="mt-2 text-sm text-muted">
                 Try another category or choose a different feeling.
               </p>
 
@@ -592,7 +604,7 @@ function Resources() {
                   setQuickPick(null);
                   setCategory("All");
                 }}
-                className="mt-5 text-sm font-semibold text-[#52745D]"
+                className="mt-5 text-sm font-semibold text-brand"
               >
                 Show all exercises
               </button>
@@ -601,16 +613,16 @@ function Resources() {
         </section>
 
         {/* Gentle Reminder */}
-        <section className="mt-12 rounded-3xl bg-[#DDE8DC] p-7 md:p-8">
-          <p className="text-sm font-medium text-[#52705A]">
+        <section className="mt-12 rounded-3xl tile-brand p-7 md:p-8">
+          <p className="text-sm font-medium text-brand">
             A gentle reminder
           </p>
 
-          <h2 className="mt-2 font-serif text-2xl text-[#294332]">
+          <h2 className="mt-2 font-serif text-2xl text-ink">
             Go at your own pace.
           </h2>
 
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-[#53685A]">
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">
             You don't have to complete every exercise or follow every
             step perfectly. Pause whenever you need to. Choose what
             feels comfortable for you.
@@ -621,7 +633,7 @@ function Resources() {
       {/* Guided Exercise Modal */}
       {selectedResource && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-[#18231f]/50 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto dialog-backdrop p-4"
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) {
               closeResource();
@@ -632,14 +644,14 @@ function Resources() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="exercise-title"
-            className="relative my-auto w-full max-w-xl rounded-3xl bg-[#F7F4EC] p-6 shadow-2xl sm:p-9"
+            className="relative my-auto w-full max-w-xl rounded-3xl page p-6 shadow-2xl sm:p-9"
           >
             {/* Close */}
             <button
               type="button"
               onClick={closeResource}
               aria-label="Close exercise"
-              className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-[#E8EDE2] text-2xl text-[#365342] hover:bg-[#DDE8DC]"
+              className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full tile-brand text-2xl text-brand hover-brand-soft"
             >
               ×
             </button>
@@ -647,7 +659,7 @@ function Resources() {
             {/* Exercise Introduction */}
             {!sessionStarted && !completed && (
               <>
-                <p className="text-sm font-medium text-[#52745D]">
+                <p className="text-sm font-medium text-brand">
                   {selectedResource.category} · {selectedResource.time}
                 </p>
 
@@ -657,28 +669,28 @@ function Resources() {
 
                 <h2
                   id="exercise-title"
-                  className="mt-4 font-serif text-3xl text-[#304737]"
+                  className="mt-4 font-serif text-3xl text-ink"
                 >
                   {selectedResource.title}
                 </h2>
 
-                <p className="mt-4 text-sm leading-7 text-[#718078]">
+                <p className="mt-4 text-sm leading-7 text-muted">
                   {selectedResource.description}
                 </p>
 
-                <div className="mt-7 rounded-2xl bg-[#EAF0E8] p-5">
-                  <p className="text-sm font-medium text-[#365342]">
+                <div className="mt-7 rounded-2xl tile-brand p-5">
+                  <p className="text-sm font-medium text-brand">
                     Before you begin
                   </p>
 
-                  <p className="mt-2 text-sm leading-6 text-[#60766e]">
+                  <p className="mt-2 text-sm leading-6 text-muted">
                     Find a comfortable position and move through this
                     exercise at your own pace. You can stop whenever
                     you want.
                   </p>
 
                   {selectedResource.caution && (
-                    <p className="mt-3 border-t border-[#D2DFD0] pt-3 text-sm leading-6 text-[#765F4D]">
+                    <p className="mt-3 border-t border-line pt-3 text-sm leading-6 text-muted">
                       {selectedResource.caution}
                     </p>
                   )}
@@ -686,7 +698,7 @@ function Resources() {
 
                 {(selectedResource.type === "breathing" ||
                   selectedResource.type === "box") && (
-                  <p className="mt-4 text-xs leading-6 text-[#8A796E]">
+                  <p className="mt-4 text-xs leading-6 text-faint">
                     This exercise has four short cycles. Do not force
                     your breath or hold it if uncomfortable. Return
                     to natural breathing if you feel dizzy or uneasy.
@@ -696,7 +708,7 @@ function Resources() {
                 <button
                   type="button"
                   onClick={startExercise}
-                  className="mt-7 w-full rounded-full bg-[#3F604B] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#314C3B]"
+                  className="mt-7 w-full rounded-full btn-primary px-6 py-4 text-sm font-semibold  transition "
                 >
                   Begin exercise
                 </button>
@@ -706,18 +718,18 @@ function Resources() {
             {/* Guided Breathing */}
             {sessionStarted && isBreathing && !completed && (
               <>
-                <p className="text-sm font-medium text-[#52745D]">
+                <p className="text-sm font-medium text-brand">
                   Guided breathing
                 </p>
 
                 <h2
                   id="exercise-title"
-                  className="mt-3 font-serif text-3xl text-[#304737]"
+                  className="mt-3 font-serif text-3xl text-ink"
                 >
                   {selectedResource.title}
                 </h2>
 
-                <div className="mt-6 flex items-center justify-between text-sm text-[#718078]">
+                <div className="mt-6 flex items-center justify-between text-sm text-muted">
                   <span>
                     Cycle {breathing.cycle} of {breathing.totalCycles}
                   </span>
@@ -727,47 +739,31 @@ function Resources() {
                   </span>
                 </div>
 
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#E1E9DF]">
-                  <div
-                    className="h-full rounded-full bg-[#779783] transition-all duration-500"
-                    style={{
-                      width: `${progress}%`,
-                    }}
-                  />
+                <div className="progress-track mt-3 h-2 overflow-hidden rounded-full">
+                  <progress className="progress-meter" value={progress} max="100" aria-label="Exercise progress" />
                 </div>
 
                 <div className="flex min-h-[300px] flex-col items-center justify-center py-8 text-center">
                   <div
                     key={`${selectedResource.id}-${breathing.cycle}-${breathing.phaseIndex}`}
-                    className={`breathing-circle flex h-44 w-44 items-center justify-center rounded-full bg-[#DDE8DC] text-center ${getStaticCircleClass()}`}
-                    style={
-                      currentPhase.motion === "grow"
-                        ? {
-                            animation: `breathe-grow ${currentPhase.duration}s linear both`,
-                          }
-                        : currentPhase.motion === "shrink"
-                          ? {
-                              animation: `breathe-shrink ${currentPhase.duration}s linear both`,
-                            }
-                          : undefined
-                    }
+                    className={`breathing-circle flex h-44 w-44 items-center justify-center rounded-full tile-brand text-center ${getStaticCircleClass()} ${getBreathingAnimationClass()}`}
                   >
                     <div>
-                      <p className="font-serif text-2xl text-[#365342]">
+                      <p className="font-serif text-2xl text-brand">
                         {currentPhase.name}
                       </p>
 
-                      <p className="mt-2 text-4xl font-semibold tabular-nums text-[#52745D]">
+                      <p className="mt-2 text-4xl font-semibold tabular-nums text-brand">
                         {breathing.secondsLeft}
                       </p>
                     </div>
                   </div>
 
-                  <p className="mt-7 text-sm text-[#718078]">
+                  <p className="mt-7 text-sm text-muted">
                     {currentPhase.instruction}
                   </p>
 
-                  <p className="mt-3 text-xs text-[#8A968D]">
+                  <p className="mt-3 text-xs text-faint">
                     Follow the timing only if it feels comfortable.
                   </p>
                 </div>
@@ -778,7 +774,7 @@ function Resources() {
                     setBreathingActive(false);
                     setCompleted(true);
                   }}
-                  className="w-full rounded-full border border-[#A7B9A8] px-6 py-3 text-sm font-medium text-[#52745D] hover:bg-[#EAF0E8]"
+                  className="w-full rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-brand hover-brand-soft"
                 >
                   Stop exercise
                 </button>
@@ -788,36 +784,31 @@ function Resources() {
             {/* Guided Step-by-Step Exercise */}
             {sessionStarted && !isBreathing && !completed && (
               <>
-                <p className="text-sm font-medium text-[#52745D]">
+                <p className="text-sm font-medium text-brand">
                   Step {stepIndex + 1} of {selectedResource.steps.length}
                 </p>
 
                 <h2
                   id="exercise-title"
-                  className="mt-3 font-serif text-3xl text-[#304737]"
+                  className="mt-3 font-serif text-3xl text-ink"
                 >
                   {selectedResource.title}
                 </h2>
 
-                <div className="mt-6 h-2 overflow-hidden rounded-full bg-[#E1E9DF]">
-                  <div
-                    className="h-full rounded-full bg-[#779783] transition-all duration-300"
-                    style={{
-                      width: `${progress}%`,
-                    }}
-                  />
+                <div className="progress-track mt-6 h-2 overflow-hidden rounded-full">
+                  <progress className="progress-meter" value={progress} max="100" aria-label="Exercise progress" />
                 </div>
 
                 <div className="flex min-h-[240px] flex-col items-center justify-center py-10 text-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#DDE8DC] text-xl font-semibold text-[#365342]">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full tile-brand text-xl font-semibold text-brand">
                     {stepIndex + 1}
                   </div>
 
-                  <p className="mt-7 max-w-md font-serif text-2xl leading-relaxed text-[#304737]">
+                  <p className="mt-7 max-w-md font-serif text-2xl leading-relaxed text-ink">
                     {selectedResource.steps[stepIndex]}
                   </p>
 
-                  <p className="mt-4 text-sm text-[#8A968D]">
+                  <p className="mt-4 text-sm text-faint">
                     Take your time. There is no rush.
                   </p>
                 </div>
@@ -827,7 +818,7 @@ function Resources() {
                     type="button"
                     onClick={previousStep}
                     disabled={stepIndex === 0}
-                    className="flex-1 rounded-full border border-[#A7B9A8] px-5 py-3 text-sm font-medium text-[#52745D] transition hover:bg-[#EAF0E8] disabled:cursor-not-allowed disabled:opacity-40"
+                    className="flex-1 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-brand transition hover-brand-soft disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     Back
                   </button>
@@ -835,7 +826,7 @@ function Resources() {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="flex-1 rounded-full bg-[#3F604B] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#314C3B]"
+                    className="flex-1 rounded-full btn-primary px-5 py-3 text-sm font-semibold  transition "
                   >
                     {stepIndex === selectedResource.steps.length - 1
                       ? "Finish exercise"
@@ -848,22 +839,22 @@ function Resources() {
             {/* Completion Screen */}
             {completed && (
               <>
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#DDE8DC] text-3xl">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full tile-brand text-3xl">
                   🌿
                 </div>
 
-                <p className="mt-6 text-sm font-medium text-[#52745D]">
+                <p className="mt-6 text-sm font-medium text-brand">
                   A moment for yourself
                 </p>
 
                 <h2
                   id="exercise-title"
-                  className="mt-3 font-serif text-3xl text-[#304737]"
+                  className="mt-3 font-serif text-3xl text-ink"
                 >
                   Nice work taking a pause.
                 </h2>
 
-                <p className="mt-4 leading-7 text-[#718078]">
+                <p className="mt-4 leading-7 text-muted">
                   You made some time for yourself. How are you feeling now?
                   There's no right or wrong answer.
                 </p>
@@ -871,7 +862,7 @@ function Resources() {
                 <Link
                   to="/mood"
                   onClick={closeResource}
-                  className="mt-7 block w-full rounded-full bg-[#3F604B] px-6 py-4 text-center text-sm font-semibold text-white transition hover:bg-[#314C3B]"
+                  className="mt-7 block w-full rounded-full btn-primary px-6 py-4 text-center text-sm font-semibold  transition "
                 >
                   Check in with your mood
                 </Link>
@@ -880,7 +871,7 @@ function Resources() {
                   <Link
                     to="/journal"
                     onClick={closeResource}
-                    className="mt-3 block w-full rounded-full border border-[#A7B9A8] px-6 py-3 text-center text-sm font-medium text-[#52745D] hover:bg-[#EAF0E8]"
+                    className="mt-3 block w-full rounded-full border border-line-strong px-6 py-3 text-center text-sm font-medium text-brand hover-brand-soft"
                   >
                     Continue reflecting in your journal
                   </Link>
@@ -889,7 +880,7 @@ function Resources() {
                 <button
                   type="button"
                   onClick={chooseAnother}
-                  className="mt-3 w-full rounded-full border border-[#A7B9A8] px-6 py-3 text-sm font-medium text-[#52745D] hover:bg-[#EAF0E8]"
+                  className="mt-3 w-full rounded-full border border-line-strong px-6 py-3 text-sm font-medium text-brand hover-brand-soft"
                 >
                   Try another exercise
                 </button>
@@ -897,7 +888,7 @@ function Resources() {
                 <button
                   type="button"
                   onClick={closeResource}
-                  className="mt-4 w-full text-sm text-[#718078] hover:text-[#304737]"
+                  className="mt-4 w-full text-sm text-muted hover-text-ink"
                 >
                   Close
                 </button>
@@ -907,33 +898,6 @@ function Resources() {
         </div>
       )}
 
-      {/* Breathing animation and reduced-motion support */}
-      <style>{`
-        @keyframes breathe-grow {
-          from {
-            transform: scale(0.75);
-          }
-          to {
-            transform: scale(1.1);
-          }
-        }
-
-        @keyframes breathe-shrink {
-          from {
-            transform: scale(1.1);
-          }
-          to {
-            transform: scale(0.75);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .breathing-circle {
-            animation: none !important;
-            transform: none !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

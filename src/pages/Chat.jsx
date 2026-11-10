@@ -121,35 +121,35 @@ function Chat() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC] flex flex-col">
+    <div className="min-h-screen page flex flex-col">
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-6 flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div>
             <Link
               to="/dashboard"
-              className="text-sm text-[#52745D] hover:underline"
+              className="text-sm text-action hover:underline"
             >
               ← Dashboard
             </Link>
 
-            <h1 className="text-3xl md:text-4xl font-serif text-[#263D31] mt-3">
+            <h1 className="text-3xl md:text-4xl font-serif text-ink mt-3">
               Your companion
             </h1>
 
-            <p className="text-sm text-[#718078] mt-1">
+            <p className="text-sm text-muted mt-1">
               A quiet space to talk things through.
             </p>
           </div>
 
-          <div className="hidden sm:flex items-center gap-2 rounded-full bg-[#E4EDE1] px-4 py-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#6C9675]" />
-            <span className="text-xs text-[#4E6656]">
+          <div className="hidden sm:flex items-center gap-2 rounded-full status-pill px-4 py-2">
+            <span className="h-2.5 w-2.5 rounded-full status-dot" />
+            <span className="text-xs text-brand">
               Here with you
             </span>
           </div>
         </div>
 
-        <div className="flex-1 bg-white border border-[#DCE3D9] rounded-3xl overflow-hidden flex flex-col min-h-[600px]">
+        <div className="flex-1 surface-card border border-line rounded-3xl overflow-hidden flex flex-col min-h-[600px]">
           <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-5">
             {messages.map((message) => (
               <div
@@ -163,8 +163,8 @@ function Chat() {
                 <div
                   className={`max-w-[85%] sm:max-w-[70%] rounded-2xl px-5 py-4 ${
                     message.sender === "user"
-                      ? "bg-[#3F604B] text-white rounded-br-md"
-                      : "bg-[#EEF3EC] text-[#3B5143] rounded-bl-md"
+                      ? "brand-fill  rounded-br-md"
+                      : "message-bot text-ink rounded-bl-md"
                   }`}
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">
@@ -176,11 +176,11 @@ function Chat() {
 
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-[#EEF3EC] rounded-2xl rounded-bl-md px-5 py-4">
+                <div className="message-bot rounded-2xl rounded-bl-md px-5 py-4">
                   <div className="flex gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-[#78907D] animate-bounce" />
-                    <span className="h-2 w-2 rounded-full bg-[#78907D] animate-bounce [animation-delay:150ms]" />
-                    <span className="h-2 w-2 rounded-full bg-[#78907D] animate-bounce [animation-delay:300ms]" />
+                    <span className="h-2 w-2 rounded-full typing-dot animate-bounce" />
+                    <span className="h-2 w-2 rounded-full typing-dot animate-bounce [animation-delay:150ms]" />
+                    <span className="h-2 w-2 rounded-full typing-dot animate-bounce [animation-delay:300ms]" />
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@ function Chat() {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t border-[#E3E8E1] p-4 sm:p-5 bg-[#FCFCF9]">
+          <div className="border-t border-line p-4 sm:p-5 chat-composer">
             <div className="flex items-end gap-3">
               <textarea
                 value={input}
@@ -201,19 +201,19 @@ function Chat() {
                     ? `What’s on your mind, ${user.name.split(" ")[0]}?`
                     : "What’s on your mind?"
                 }
-                className="flex-1 resize-none rounded-2xl border border-[#D7DFD5] bg-white px-4 py-3 text-sm text-[#263D31] outline-none focus:border-[#52745D] focus:ring-2 focus:ring-[#52745D]/10"
+                className="chat-textarea flex-1 resize-none rounded-2xl border px-4 py-3 text-sm"
               />
 
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || isTyping}
-                className="rounded-2xl bg-[#3F604B] px-5 py-3 text-sm font-medium text-white transition hover:bg-[#314C3B] disabled:opacity-40 disabled:cursor-not-allowed"
+                className="rounded-2xl brand-fill px-5 py-3 text-sm font-medium  transition  disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Send
               </button>
             </div>
 
-            <p className="text-[11px] text-[#879289] mt-3 text-center">
+            <p className="text-[11px] text-faint mt-3 text-center">
               MindEase is a wellness companion, not a replacement for
               professional mental-health care.
             </p>

@@ -121,51 +121,51 @@ function Dashboard() {
   const initial = user?.name?.charAt(0)?.toUpperCase() || "U";
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC]">
+    <div className="min-h-screen page">
       <main className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
 
         {/* Welcome Section */}
         <section className="mb-10">
-          <p className="text-sm text-[#6B7B70] mb-2">
+          <p className="text-sm text-faint mb-2">
             {getGreeting()}, {user?.name?.split(" ")[0] || "there"}
           </p>
 
-          <h1 className="text-4xl md:text-5xl font-serif text-[#263D31]">
+          <h1 className="text-4xl md:text-5xl font-serif text-ink">
             How are you feeling today?
           </h1>
 
-          <p className="mt-3 text-[#718078]">
+          <p className="mt-3 text-muted">
             There's no right answer. Just check in with yourself.
           </p>
         </section>
 
         {/* Daily Affirmation */}
-        <section className="bg-[#E8EDE2] border border-[#D6E0D2] rounded-3xl p-6 md:p-7 mb-8">
+        <section className="tile-brand border border-line-strong rounded-3xl p-6 md:p-7 mb-8">
 
           <div className="flex items-center justify-between">
-            <p className="text-xs uppercase tracking-[0.15em] font-medium text-[#66806A]">
+            <p className="text-xs uppercase tracking-[0.15em] font-medium text-brand">
               A MOMENT FOR YOU
             </p>
 
             <span className="text-2xl">🌿</span>
           </div>
 
-          <h2 className="text-2xl md:text-3xl font-serif text-[#304737] mt-3">
+          <h2 className="text-2xl md:text-3xl font-serif text-ink mt-3">
             Today's Affirmation
           </h2>
 
-          <p className="text-lg md:text-xl font-serif italic text-[#365342] leading-relaxed mt-4">
+          <p className="text-lg md:text-xl font-serif italic text-brand leading-relaxed mt-4">
             "{AFFIRMATIONS[affirmationIndex]}"
           </p>
 
-          <p className="text-sm text-[#718078] mt-3">
+          <p className="text-sm text-muted mt-3">
             Take a breath. Read it. Believe it.
           </p>
 
           <button
             type="button"
             onClick={showAnotherAffirmation}
-            className="mt-5 rounded-full border border-[#78917D] text-[#3F604B] px-5 py-2.5 text-sm font-medium hover:bg-[#DDE8DC] transition"
+            className="mt-5 rounded-full border border-brand text-brand px-5 py-2.5 text-sm font-medium  transition"
           >
             Show another affirmation ↻
           </button>
@@ -176,57 +176,57 @@ function Dashboard() {
 
           <Link
             to="/mood"
-            className="bg-white border border-[#DCE3D9] rounded-2xl p-6 hover:-translate-y-1 transition"
+            className="surface-card border border-line rounded-2xl p-6 hover:-translate-y-1 transition"
           >
             <div className="text-3xl mb-5">🌿</div>
 
-            <h3 className="text-xl font-serif text-[#304737]">
+            <h3 className="text-xl font-serif text-ink">
               Mood tracker
             </h3>
 
-            <p className="text-sm text-[#718078] mt-2">
+            <p className="text-sm text-muted mt-2">
               Check in and understand your emotional patterns.
             </p>
 
-            <span className="inline-block mt-5 text-sm font-medium text-[#52745D]">
+            <span className="inline-block mt-5 text-sm font-medium text-action">
               Check in →
             </span>
           </Link>
 
           <Link
             to="/journal"
-            className="bg-white border border-[#DCE3D9] rounded-2xl p-6 hover:-translate-y-1 transition"
+            className="surface-card border border-line rounded-2xl p-6 hover:-translate-y-1 transition"
           >
             <div className="text-3xl mb-5">📖</div>
 
-            <h3 className="text-xl font-serif text-[#304737]">
+            <h3 className="text-xl font-serif text-ink">
               Private journal
             </h3>
 
-            <p className="text-sm text-[#718078] mt-2">
+            <p className="text-sm text-muted mt-2">
               Put your thoughts into words in your own private space.
             </p>
 
-            <span className="inline-block mt-5 text-sm font-medium text-[#52745D]">
+            <span className="inline-block mt-5 text-sm font-medium text-action">
               Write something →
             </span>
           </Link>
 
           <Link
             to="/wellness"
-            className="bg-white border border-[#DCE3D9] rounded-2xl p-6 hover:-translate-y-1 transition"
+            className="surface-card border border-line rounded-2xl p-6 hover:-translate-y-1 transition"
           >
             <div className="text-3xl mb-5">🫧</div>
 
-            <h3 className="text-xl font-serif text-[#304737]">
+            <h3 className="text-xl font-serif text-ink">
               Wellness
             </h3>
 
-            <p className="text-sm text-[#718078] mt-2">
+            <p className="text-sm text-muted mt-2">
               Try breathing, grounding and mindfulness exercises.
             </p>
 
-            <span className="inline-block mt-5 text-sm font-medium text-[#52745D]">
+            <span className="inline-block mt-5 text-sm font-medium text-action">
               Explore →
             </span>
           </Link>
@@ -237,17 +237,17 @@ function Dashboard() {
         <section className="grid md:grid-cols-2 gap-5 mb-8">
 
           {/* Latest Mood */}
-          <div className="bg-white border border-[#DCE3D9] rounded-2xl p-6">
-            <p className="text-sm text-[#7A887E]">
+          <div className="surface-card border border-line rounded-2xl p-6">
+            <p className="text-sm text-faint">
               Latest mood
             </p>
 
             {loading ? (
-              <p className="mt-4 text-[#718078]">
+              <p className="mt-4 text-muted">
                 Loading your mood...
               </p>
             ) : error ? (
-              <p className="mt-4 text-sm text-red-600">
+              <p className="mt-4 text-sm error-soft">
                 Unable to load mood information.
               </p>
             ) : latestMood ? (
@@ -257,24 +257,24 @@ function Dashboard() {
                 </span>
 
                 <div>
-                  <h3 className="text-xl font-serif text-[#304737]">
+                  <h3 className="text-xl font-serif text-ink">
                     {latestMood.mood}
                   </h3>
 
-                  <p className="text-sm text-[#7A887E]">
+                  <p className="text-sm text-faint">
                     {formatActivityDate(latestMood.date)}
                   </p>
                 </div>
               </div>
             ) : (
               <div className="mt-4">
-                <p className="text-[#718078]">
+                <p className="text-muted">
                   You haven't logged a mood yet.
                 </p>
 
                 <Link
                   to="/mood"
-                  className="inline-block mt-4 text-sm font-medium text-[#52745D]"
+                  className="inline-block mt-4 text-sm font-medium text-action"
                 >
                   Log your first mood →
                 </Link>
@@ -283,32 +283,32 @@ function Dashboard() {
           </div>
 
           {/* Journal Count */}
-          <div className="bg-white border border-[#DCE3D9] rounded-2xl p-6">
-            <p className="text-sm text-[#7A887E]">
+          <div className="surface-card border border-line rounded-2xl p-6">
+            <p className="text-sm text-faint">
               Journal entries
             </p>
 
             {loading ? (
-              <p className="mt-4 text-[#718078]">
+              <p className="mt-4 text-muted">
                 Loading your journal...
               </p>
             ) : error ? (
-              <p className="mt-4 text-sm text-red-600">
+              <p className="mt-4 text-sm error-soft">
                 Unable to load journal information.
               </p>
             ) : (
               <>
-                <p className="text-4xl font-serif text-[#304737] mt-3">
+                <p className="text-4xl font-serif text-ink mt-3">
                   {journalCount}
                 </p>
 
-                <p className="text-sm text-[#718078] mt-1">
+                <p className="text-sm text-muted mt-1">
                   entries written so far
                 </p>
 
                 <Link
                   to="/journal"
-                  className="inline-block mt-4 text-sm font-medium text-[#52745D]"
+                  className="inline-block mt-4 text-sm font-medium text-action"
                 >
                   Open journal →
                 </Link>
@@ -319,19 +319,19 @@ function Dashboard() {
         </section>
 
         {/* Recent Activity */}
-        <section className="bg-white border border-[#DCE3D9] rounded-3xl p-6 md:p-8 mb-8">
+        <section className="surface-card border border-line rounded-3xl p-6 md:p-8 mb-8">
 
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-sm uppercase tracking-[0.15em] text-[#7A887E]">
+              <p className="text-sm uppercase tracking-[0.15em] text-faint">
                 YOUR JOURNEY
               </p>
 
-              <h2 className="text-2xl md:text-3xl font-serif text-[#304737] mt-2">
+              <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
                 Recent Activity
               </h2>
 
-              <p className="text-sm text-[#718078] mt-2">
+              <p className="text-sm text-muted mt-2">
                 A little look at the moments you've recorded.
               </p>
             </div>
@@ -340,11 +340,11 @@ function Dashboard() {
           </div>
 
           {loading ? (
-            <p className="text-[#718078] py-5">
+            <p className="text-muted py-5">
               Loading your recent activity...
             </p>
           ) : error ? (
-            <p className="text-sm text-red-600 py-5">
+            <p className="text-sm error-soft py-5">
               Unable to load recent activity.
             </p>
           ) : latestMood || latestJournals.length > 0 ? (
@@ -354,27 +354,27 @@ function Dashboard() {
               {latestMood && (
                 <Link
                   to="/mood"
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-[#F3F6F0] hover:bg-[#EAF0E7] transition"
+                  className="flex items-center gap-4 p-4 rounded-2xl activity-card  transition"
                 >
-                  <div className="w-12 h-12 shrink-0 rounded-full bg-[#DDE8DC] flex items-center justify-center text-2xl">
+                  <div className="w-12 h-12 shrink-0 rounded-full tile-brand flex items-center justify-center text-2xl">
                     {latestMood.emoji || getMoodEmoji(latestMood.mood)}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-[#304737]">
+                    <p className="font-medium text-ink">
                       You checked in with your mood
                     </p>
 
-                    <p className="text-sm text-[#718078] mt-1">
+                    <p className="text-sm text-muted mt-1">
                       You were feeling {latestMood.mood}.
                     </p>
 
-                    <p className="text-xs text-[#8A968D] mt-1">
+                    <p className="text-xs text-faint mt-1">
                       {formatActivityDate(latestMood.date)}
                     </p>
                   </div>
 
-                  <span className="text-[#78917D]">→</span>
+                  <span className="text-brand">→</span>
                 </Link>
               )}
 
@@ -395,55 +395,55 @@ function Dashboard() {
                   <Link
                     to="/journal"
                     key={entry._id || index}
-                    className="flex items-center gap-4 p-4 rounded-2xl bg-[#F3F6F0] hover:bg-[#EAF0E7] transition"
+                    className="flex items-center gap-4 p-4 rounded-2xl activity-card  transition"
                   >
-                    <div className="w-12 h-12 shrink-0 rounded-full bg-[#E8E5D9] flex items-center justify-center text-2xl">
+                    <div className="w-12 h-12 shrink-0 rounded-full tile-sand flex items-center justify-center text-2xl">
                       📖
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-[#304737]">
+                      <p className="font-medium text-ink">
                         You added a journal entry
                       </p>
 
-                      <p className="text-sm text-[#718078] mt-1 truncate">
+                      <p className="text-sm text-muted mt-1 truncate">
                         {journalText}
                       </p>
 
-                      <p className="text-xs text-[#8A968D] mt-1">
+                      <p className="text-xs text-faint mt-1">
                         {formatActivityDate(journalDate)}
                       </p>
                     </div>
 
-                    <span className="text-[#78917D]">→</span>
+                    <span className="text-brand">→</span>
                   </Link>
                 );
               })}
 
             </div>
           ) : (
-            <div className="text-center py-10 rounded-2xl bg-[#F3F6F0]">
+            <div className="text-center py-10 rounded-2xl activity-card">
               <div className="text-4xl mb-3">🌿</div>
 
-              <h3 className="text-lg font-serif text-[#304737]">
+              <h3 className="text-lg font-serif text-ink">
                 Your journey starts here
               </h3>
 
-              <p className="text-sm text-[#718078] mt-2">
+              <p className="text-sm text-muted mt-2">
                 Your mood check-ins and journal entries will appear here.
               </p>
 
               <div className="flex flex-wrap justify-center gap-3 mt-5">
                 <Link
                   to="/mood"
-                  className="rounded-full bg-[#3F604B] text-white px-5 py-2.5 text-sm hover:bg-[#314C3B] transition"
+                  className="rounded-full btn-primary  px-5 py-2.5 text-sm  transition"
                 >
                   Track your mood
                 </Link>
 
                 <Link
                   to="/journal"
-                  className="rounded-full border border-[#9DAF9F] text-[#3F604B] px-5 py-2.5 text-sm hover:bg-[#E8EEE6] transition"
+                  className="rounded-full border border-brand text-brand px-5 py-2.5 text-sm  transition"
                 >
                   Write a journal
                 </Link>
@@ -454,14 +454,14 @@ function Dashboard() {
           <div className="mt-6 flex flex-wrap gap-5">
             <Link
               to="/mood"
-              className="text-sm font-semibold text-[#52745D] hover:text-[#304737] transition"
+              className="text-sm font-semibold text-action  transition"
             >
               View mood tracker →
             </Link>
 
             <Link
               to="/journal"
-              className="text-sm font-semibold text-[#52745D] hover:text-[#304737] transition"
+              className="text-sm font-semibold text-action  transition"
             >
               View journal →
             </Link>
@@ -469,15 +469,15 @@ function Dashboard() {
         </section>
 
         {/* My Account Section */}
-        <section className="bg-white border border-[#DCE3D9] rounded-3xl p-6 md:p-8 mb-8">
+        <section className="surface-card border border-line rounded-3xl p-6 md:p-8 mb-8">
 
           <div className="flex items-center justify-between mb-6">
             <div>
-              <p className="text-sm text-[#7A887E]">
+              <p className="text-sm text-faint">
                 ACCOUNT SETTINGS
               </p>
 
-              <h2 className="text-2xl font-serif text-[#304737] mt-1">
+              <h2 className="text-2xl font-serif text-ink mt-1">
                 My Account
               </h2>
             </div>
@@ -487,27 +487,27 @@ function Dashboard() {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-5">
 
-            <div className="w-16 h-16 shrink-0 rounded-full bg-[#DDE8DC] flex items-center justify-center text-2xl font-semibold text-[#31503E]">
+            <div className="w-16 h-16 shrink-0 rounded-full tile-brand flex items-center justify-center text-2xl font-semibold text-ink">
               {initial}
             </div>
 
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl font-serif text-[#304737]">
+              <h3 className="text-xl font-serif text-ink">
                 {user?.name || "MindEase User"}
               </h3>
 
-              <p className="text-sm text-[#7A887E] mt-1 break-all">
+              <p className="text-sm text-faint mt-1 break-all">
                 {user?.email || "Email not available"}
               </p>
 
-              <p className="text-xs text-[#8B978E] mt-2">
+              <p className="text-xs text-faint mt-2">
                 Your personal account information
               </p>
             </div>
 
             <Link
               to="/profile"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#3F604B] px-6 py-3 text-sm font-medium text-white hover:bg-[#314C3B] transition"
+              className="inline-flex items-center justify-center gap-2 rounded-full btn-primary px-6 py-3 text-sm font-medium   transition"
             >
               <span>✎</span>
               Edit Profile
@@ -517,34 +517,34 @@ function Dashboard() {
         </section>
 
         {/* Mental Health Support - Tele MANAS */}
-        <section className="bg-[#E8EDE5] border border-[#D5DFD2] rounded-3xl p-6 md:p-8 mb-6">
+        <section className="strip-warm border border-sand rounded-3xl p-6 md:p-8 mb-6">
 
           <div className="flex items-start gap-4">
 
-            <div className="w-12 h-12 shrink-0 rounded-full bg-white flex items-center justify-center text-2xl">
+            <div className="w-12 h-12 shrink-0 rounded-full surface-card flex items-center justify-center text-2xl">
               💚
             </div>
 
             <div className="flex-1">
 
-              <p className="text-xs uppercase tracking-[0.15em] font-medium text-[#66806A]">
+              <p className="text-xs uppercase tracking-[0.15em] font-medium text-brand">
                 YOU DON'T HAVE TO FACE IT ALONE
               </p>
 
-              <h2 className="text-2xl md:text-3xl font-serif text-[#304737] mt-2">
+              <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
                 Need someone to talk to?
               </h2>
 
-              <p className="text-sm md:text-base text-[#53685A] leading-relaxed mt-3">
+              <p className="text-sm md:text-base text-muted leading-relaxed mt-3">
                 If you are experiencing emotional distress or need
                 professional mental health support, you can reach out
                 to Tele-MANAS, a free 24/7 mental health helpline
                 provided by the Government of India.
               </p>
 
-              <div className="mt-5 bg-white rounded-2xl p-5">
+              <div className="mt-5 surface-card rounded-2xl p-5">
 
-                <p className="text-sm font-medium text-[#66806A]">
+                <p className="text-sm font-medium text-brand">
                   TELE-MANAS HELPLINE
                 </p>
 
@@ -552,25 +552,25 @@ function Dashboard() {
 
                   <a
                     href="tel:14416"
-                    className="text-3xl font-serif font-semibold text-[#304737] hover:text-[#52745D] transition"
+                    className="text-3xl font-serif font-semibold text-ink  transition"
                   >
                     14416
                   </a>
 
-                  <span className="hidden sm:block text-[#A1ADA2]">
+                  <span className="hidden sm:block text-faint">
                     or
                   </span>
 
                   <a
                     href="tel:18008914416"
-                    className="text-xl font-medium text-[#52745D] hover:text-[#304737] transition"
+                    className="text-xl font-medium text-action  transition"
                   >
                     1800-89-14416
                   </a>
 
                 </div>
 
-                <p className="text-xs text-[#718078] mt-3">
+                <p className="text-xs text-muted mt-3">
                   Free • Available 24 hours a day • Across India
                 </p>
 
@@ -578,14 +578,14 @@ function Dashboard() {
                   href="https://telemanas.mohfw.gov.in/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block mt-4 text-sm font-semibold text-[#52745D] hover:text-[#304737] transition"
+                  className="inline-block mt-4 text-sm font-semibold text-action  transition"
                 >
                   Visit official Tele-MANAS website →
                 </a>
 
               </div>
 
-              <p className="text-xs text-[#718078] leading-relaxed mt-5">
+              <p className="text-xs text-muted leading-relaxed mt-5">
                 MindEase is not an emergency or crisis response service.
                 If you or someone else is in immediate danger, contact
                 local emergency services or visit the nearest emergency
@@ -597,7 +597,7 @@ function Dashboard() {
         </section>
 
         {/* Footer Note */}
-        <p className="text-center text-xs text-[#8A968D] py-3">
+        <p className="text-center text-xs text-faint py-3">
           Take care of yourself. You matter. 💚
         </p>
 

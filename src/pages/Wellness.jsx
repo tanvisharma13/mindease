@@ -502,19 +502,19 @@ function Wellness() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC]">
+    <div className="min-h-screen page">
       <main className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
         {/* Header */}
         <section className="mb-12 max-w-3xl">
-          <p className="mb-3 text-sm font-medium text-[#52745D]">
+          <p className="mb-3 text-sm font-medium text-brand">
             Mental health library
           </p>
 
-          <h1 className="font-serif text-4xl leading-tight text-[#263D31] md:text-6xl">
+          <h1 className="font-serif text-4xl leading-tight text-ink md:text-6xl">
             Understand what you're experiencing.
           </h1>
 
-          <p className="mt-5 text-base leading-8 text-[#718078] md:text-lg">
+          <p className="mt-5 text-base leading-8 text-muted md:text-lg">
             A gentle starting point for learning about common mental-health
             experiences, finding things you can try, and knowing when extra
             support may help.
@@ -527,7 +527,7 @@ function Wellness() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search sleep, exams, anxiety, relationships..."
               aria-label="Search mental health topics"
-              className="w-full rounded-2xl border border-[#D7DFD5] bg-white px-5 py-4 text-sm text-[#304737] outline-none focus:border-[#52745D] focus:ring-2 focus:ring-[#52745D]/10"
+              className="w-full rounded-2xl border border-line-strong surface-card px-5 py-4 text-sm text-ink    /10"
             />
           </div>
         </section>
@@ -543,8 +543,8 @@ function Wellness() {
                 aria-pressed={selectedTopic === topic.id}
                 className={`rounded-full px-4 py-2.5 text-sm transition ${
                   selectedTopic === topic.id
-                    ? "bg-[#3F604B] text-white"
-                    : "border border-[#DCE3D9] bg-white text-[#53675A] hover:bg-[#EAF0E8]"
+                    ? "btn-primary"
+                    : "border-line surface-card text-muted hover-brand-soft"
                 }`}
               >
                 {topic.emoji} {topic.title}
@@ -553,8 +553,8 @@ function Wellness() {
           </div>
 
           {filteredTopics.length === 0 && (
-            <div className="mt-6 rounded-2xl border border-[#DCE3D9] bg-white p-6">
-              <p className="text-sm text-[#718078]">
+            <div className="mt-6 rounded-2xl border border-line surface-card p-6">
+              <p className="text-sm text-muted">
                 We couldn't find that topic. Try another word or browse the
                 topics above.
               </p>
@@ -562,7 +562,7 @@ function Wellness() {
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="mt-3 text-sm font-medium text-[#52745D] hover:underline"
+                className="mt-3 text-sm font-medium text-brand hover:underline"
               >
                 Show all topics
               </button>
@@ -574,25 +574,25 @@ function Wellness() {
         {filteredTopics.length > 0 && (
           <section className="grid gap-6 lg:grid-cols-[280px_1fr]">
             {/* Topic introduction */}
-            <aside className="h-fit rounded-3xl bg-[#DDE8DC] p-6 lg:sticky lg:top-28">
+            <aside className="h-fit rounded-3xl tile-brand p-6 lg:sticky lg:top-28">
               <div className="mb-5 text-4xl">
                 {activeTopic.emoji}
               </div>
 
-              <h2 className="font-serif text-2xl text-[#294332]">
+              <h2 className="font-serif text-2xl text-ink">
                 {activeTopic.title}
               </h2>
 
-              <p className="mt-3 text-sm leading-6 text-[#53685A]">
+              <p className="mt-3 text-sm leading-6 text-muted">
                 {activeTopic.description}
               </p>
 
-              <div className="mt-7 border-t border-[#C7D7C5] pt-5">
-                <p className="text-sm font-semibold text-[#607765]">
+              <div className="mt-7 border-t border-line-strong pt-5">
+                <p className="text-sm font-semibold text-muted">
                   Remember
                 </p>
 
-                <p className="mt-2 text-sm leading-6 text-[#53685A]">
+                <p className="mt-2 text-sm leading-6 text-muted">
                   Reading about an experience can help you understand
                   yourself, but it cannot tell you whether you have a
                   diagnosis.
@@ -602,12 +602,12 @@ function Wellness() {
 
             <div className="space-y-5">
               {/* What you might experience */}
-              <article className="rounded-3xl border border-[#DCE3D9] bg-white p-6 md:p-8">
-                <p className="text-sm font-medium text-[#52745D]">
+              <article className="rounded-3xl border border-line surface-card p-6 md:p-8">
+                <p className="text-sm font-medium text-brand">
                   01
                 </p>
 
-                <h2 className="mt-2 font-serif text-2xl text-[#304737] md:text-3xl">
+                <h2 className="mt-2 font-serif text-2xl text-ink md:text-3xl">
                   What you might be experiencing
                 </h2>
 
@@ -615,9 +615,9 @@ function Wellness() {
                   {activeTopic.experiencing.map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl bg-[#F5F8F3] px-4 py-4 text-sm text-[#53675A]"
+                      className="rounded-2xl tile-brand px-4 py-4 text-sm text-muted"
                     >
-                      <span className="mr-2 text-[#6C8A72]">•</span>
+                      <span className="mr-2 text-brand-mid">•</span>
                       {item}
                     </div>
                   ))}
@@ -625,23 +625,23 @@ function Wellness() {
               </article>
 
               {/* What can help */}
-              <article className="rounded-3xl border border-[#DCE3D9] bg-white p-6 md:p-8">
-                <p className="text-sm font-medium text-[#52745D]">
+              <article className="rounded-3xl border border-line surface-card p-6 md:p-8">
+                <p className="text-sm font-medium text-brand">
                   02
                 </p>
 
-                <h2 className="mt-2 font-serif text-2xl text-[#304737] md:text-3xl">
+                <h2 className="mt-2 font-serif text-2xl text-ink md:text-3xl">
                   What can help
                 </h2>
 
                 <div className="mt-6 space-y-3">
                   {activeTopic.canHelp.map((item) => (
                     <div key={item} className="flex items-start gap-3">
-                      <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#DDE8DC] text-xs text-[#52745D]">
+                      <span className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full tile-brand text-xs text-brand">
                         ✓
                       </span>
 
-                      <p className="text-sm leading-6 text-[#53675A]">
+                      <p className="text-sm leading-6 text-muted">
                         {item}
                       </p>
                     </div>
@@ -650,8 +650,8 @@ function Wellness() {
               </article>
 
               {/* Things to try */}
-              <article className="rounded-3xl bg-[#304737] p-6 text-white md:p-8">
-                <p className="text-sm font-medium text-[#BFD1C0]">
+              <article className="rounded-3xl panel-dark on-dark-strong p-6 md:p-8">
+                <p className="text-sm font-medium on-dark-faint">
                   03
                 </p>
 
@@ -663,13 +663,13 @@ function Wellness() {
                   {activeTopic.try.map((item, index) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-white/10 bg-white/10 p-5"
+                      className="rounded-2xl chat-card p-5"
                     >
-                      <span className="text-xs text-[#BFD1C0]">
+                      <span className="text-xs on-dark-faint">
                         Try {index + 1}
                       </span>
 
-                      <p className="mt-2 text-sm leading-6 text-[#E8EFE6]">
+                      <p className="mt-2 text-sm leading-6 on-dark">
                         {item}
                       </p>
                     </div>
@@ -678,16 +678,16 @@ function Wellness() {
               </article>
 
               {/* What to do next */}
-              <article className="rounded-3xl border border-[#DCE3D9] bg-white p-6 md:p-8">
-                <p className="text-sm font-medium text-[#52745D]">
+              <article className="rounded-3xl border border-line surface-card p-6 md:p-8">
+                <p className="text-sm font-medium text-brand">
                   04
                 </p>
 
-                <h2 className="mt-2 font-serif text-2xl text-[#304737] md:text-3xl">
+                <h2 className="mt-2 font-serif text-2xl text-ink md:text-3xl">
                   What to do next
                 </h2>
 
-                <p className="mt-3 text-sm leading-7 text-[#718078]">
+                <p className="mt-3 text-sm leading-7 text-muted">
                   Learning about something is a good first step. You can
                   continue at your own pace using the other MindEase
                   features.
@@ -696,75 +696,75 @@ function Wellness() {
                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
                   <Link
                     to="/resources"
-                    className="rounded-2xl bg-[#EAF0E8] p-5 transition hover:bg-[#DDE8DC]"
+                    className="rounded-2xl tile-brand p-5 transition hover-brand-soft"
                   >
                     <span className="text-2xl">🌿</span>
 
-                    <h3 className="mt-3 font-semibold text-[#304737]">
+                    <h3 className="mt-3 font-semibold text-ink">
                       Try an exercise
                     </h3>
 
-                    <p className="mt-2 text-sm leading-6 text-[#60766e]">
+                    <p className="mt-2 text-sm leading-6 text-muted">
                       {activeTopic.next.exercise}
                     </p>
 
-                    <p className="mt-3 text-xs font-semibold text-[#52745D]">
+                    <p className="mt-3 text-xs font-semibold text-brand">
                       Explore Resources →
                     </p>
                   </Link>
 
                   <Link
                     to="/chat"
-                    className="rounded-2xl bg-[#F3F1E9] p-5 transition hover:bg-[#EDE9DE]"
+                    className="rounded-2xl tile-sand p-5 transition hover-sand"
                   >
                     <span className="text-2xl">💬</span>
 
-                    <h3 className="mt-3 font-semibold text-[#304737]">
+                    <h3 className="mt-3 font-semibold text-ink">
                       Talk it through
                     </h3>
 
-                    <p className="mt-2 text-sm leading-6 text-[#60766e]">
+                    <p className="mt-2 text-sm leading-6 text-muted">
                       Use the MindEase chatbot to put your thoughts into
                       words.
                     </p>
 
-                    <p className="mt-3 text-xs font-semibold text-[#52745D]">
+                    <p className="mt-3 text-xs font-semibold text-brand">
                       Open Chat →
                     </p>
                   </Link>
 
                   <Link
                     to="/mood"
-                    className="rounded-2xl bg-[#F5F0E9] p-5 transition hover:bg-[#EEE5D9]"
+                    className="rounded-2xl tile-sand p-5 transition hover-sand"
                   >
                     <span className="text-2xl">💚</span>
 
-                    <h3 className="mt-3 font-semibold text-[#304737]">
+                    <h3 className="mt-3 font-semibold text-ink">
                       Log how you feel
                     </h3>
 
-                    <p className="mt-2 text-sm leading-6 text-[#60766e]">
+                    <p className="mt-2 text-sm leading-6 text-muted">
                       Record your mood and notice patterns over time.
                     </p>
 
-                    <p className="mt-3 text-xs font-semibold text-[#52745D]">
+                    <p className="mt-3 text-xs font-semibold text-brand">
                       Open Mood Tracker →
                     </p>
                   </Link>
                 </div>
 
-                <p className="mt-4 text-xs leading-5 text-[#8A968D]">
+                <p className="mt-4 text-xs leading-5 text-faint">
                   {activeTopic.next.description}
                 </p>
               </article>
 
               {/* Professional support */}
-              <article className="rounded-3xl border border-[#DED8C9] bg-[#EDE9DE] p-6 md:p-8">
-                <h2 className="font-serif text-2xl text-[#4A5148]">
+              <article className="rounded-3xl strip-warm p-6 md:p-8">
+                <h2 className="font-serif text-2xl text-ink">
                   When to reach out for more support
                 </h2>
 
-                <p className="mt-3 text-sm leading-7 text-[#626960]">
+                <p className="mt-3 text-sm leading-7 text-muted">
                   If what you're experiencing is persistent, getting in the
                   way of daily life, or becoming difficult to manage on your
                   own, consider speaking with a qualified mental-health
@@ -773,29 +773,29 @@ function Wellness() {
                   for help.
                 </p>
 
-                <div className="mt-6 rounded-2xl bg-white/70 p-5">
-                  <p className="text-sm font-semibold text-[#365342]">
+                <div className="mt-6 rounded-2xl surface-card p-5">
+                  <p className="text-sm font-semibold text-brand">
                     Need someone to talk to in India?
                   </p>
 
-                  <p className="mt-2 text-sm leading-6 text-[#626960]">
+                  <p className="mt-2 text-sm leading-6 text-muted">
                     Tele-MANAS provides free mental-health support, 24 hours
                     a day, 7 days a week, in multiple languages.
                   </p>
 
                   <a
                     href="tel:14416"
-                    className="mt-4 inline-flex items-center justify-center rounded-full bg-[#3F604B] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#314C3B]"
+                    className="mt-4 inline-flex items-center justify-center rounded-full btn-primary px-6 py-3 text-sm font-semibold transition"
                   >
                     Call Tele-MANAS: 14416
                   </a>
 
-                  <p className="mt-3 text-xs text-[#718078]">
+                  <p className="mt-3 text-xs text-muted">
                     You can also call 1800-891-4416.
                   </p>
                 </div>
 
-                <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium text-[#52745D]">
+                <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium text-brand">
                   <Link to="/resources" className="hover:underline">
                     Explore exercises
                   </Link>
@@ -814,8 +814,8 @@ function Wellness() {
         )}
 
         {/* Crisis note */}
-        <section className="mt-8 rounded-2xl border border-[#E4D9D0] bg-[#FAF5F0] px-5 py-4">
-          <p className="text-sm leading-6 text-[#665A53]">
+        <section className="mt-8 rounded-2xl strip-warm px-5 py-4">
+          <p className="text-sm leading-6 text-muted">
             <strong>
               If you are in immediate danger or think you may hurt yourself
               or someone else,
@@ -827,14 +827,14 @@ function Wellness() {
         </section>
 
         {/* Sources and review information */}
-        <footer className="mt-10 border-t border-[#DCE3D9] pt-6">
+        <footer className="mt-10 border-t border-line pt-6">
         
 
         
 
        
 
-          <p className="mt-4 text-xs leading-5 text-[#8A968D]">
+          <p className="mt-4 text-xs leading-5 text-faint">
             It is not a diagnostic tool
             and does not replace professional mental-health care.
           </p>

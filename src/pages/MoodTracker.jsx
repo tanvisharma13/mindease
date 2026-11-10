@@ -436,12 +436,12 @@ function MoodTracker() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC] px-4 py-10 text-[#304737] sm:px-6 md:px-10 md:py-14">
+    <div className="min-h-screen page px-4 py-10 text-ink sm:px-6 md:px-10 md:py-14">
       <div className="mx-auto max-w-6xl">
 
         {/* Page heading */}
         <header className="mb-9 md:mb-12">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#718078]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-muted">
             YOUR PERSONAL SPACE
           </p>
 
@@ -449,13 +449,13 @@ function MoodTracker() {
             Mood tracker
           </h1>
 
-          <p className="mt-4 max-w-2xl text-base leading-7 text-[#718078] md:text-lg">
+          <p className="mt-4 max-w-2xl text-base leading-7 text-muted md:text-lg">
             Take a moment to check in with yourself. Notice how
             you're feeling, without judging or comparing.
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-[#718078]">
-            <span className="rounded-full bg-[#DDE8DC] px-3 py-1.5 text-[#3F604B]">
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-sm text-muted">
+            <span className="rounded-full tile-brand px-3 py-1.5 text-brand">
               {formatDate(new Date(), {
                 weekday: "long",
                 year: "numeric",
@@ -463,7 +463,7 @@ function MoodTracker() {
             </span>
 
             {todayEntry && (
-              <span className="rounded-full border border-[#C8D8C9] px-3 py-1.5 text-[#52745D]">
+              <span className="rounded-full accent-badge px-3 py-1.5">
                 Today's check-in saved
               </span>
             )}
@@ -471,10 +471,10 @@ function MoodTracker() {
         </header>
 
         {/* Check-in form */}
-        <section className="rounded-[28px] border border-[#E2E7DE] bg-white p-5 shadow-sm sm:p-7 md:p-9">
+        <section className="rounded-[28px] border border-line surface-card p-5 shadow-sm sm:p-7 md:p-9">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#718078]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
                 DAILY CHECK-IN
               </p>
 
@@ -482,13 +482,13 @@ function MoodTracker() {
                 How are you feeling today?
               </h2>
 
-              <p className="mt-2 text-sm text-[#718078]">
+              <p className="mt-2 text-sm text-muted">
                 There's no right or wrong answer.
               </p>
             </div>
 
             {todayEntry && (
-              <span className="rounded-full bg-[#EDF3EB] px-3 py-1.5 text-xs font-medium text-[#52745D]">
+              <span className="rounded-full tile-brand px-3 py-1.5 text-xs font-medium text-action">
                 Already checked in
               </span>
             )}
@@ -509,10 +509,10 @@ function MoodTracker() {
                   type="button"
                   onClick={() => selectMood(mood.value)}
                   aria-pressed={isSelected}
-                  className={`group rounded-2xl border p-4 text-left transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D] focus-visible:ring-offset-2 sm:p-5 ${
+                  className={`group rounded-2xl border p-4 text-left transition duration-200     sm:p-5 ${
                     isSelected
-                      ? "border-[#52745D] bg-[#EAF1E8] shadow-sm"
-                      : "border-[#E5E9E2] bg-[#FAFAF7] hover:-translate-y-0.5 hover:border-[#B8CBB9] hover:bg-[#F3F6F0]"
+                      ? "mood-selected shadow-sm"
+                      : "mood-option hover:-translate-y-0.5"
                   }`}
                 >
                   <span className="flex items-center justify-between">
@@ -522,7 +522,7 @@ function MoodTracker() {
 
                     {isSelected && (
                       <span
-                        className="flex h-5 w-5 items-center justify-center rounded-full bg-[#52745D] text-xs text-white"
+                        className="flex h-5 w-5 items-center justify-center rounded-full mood-check text-xs"
                         aria-hidden="true"
                       >
                         ✓
@@ -530,11 +530,11 @@ function MoodTracker() {
                     )}
                   </span>
 
-                  <span className="mt-3 block text-sm font-semibold text-[#304737]">
+                  <span className="mt-3 block text-sm font-semibold text-ink">
                     {mood.label}
                   </span>
 
-                  <span className="mt-1 block text-xs leading-5 text-[#718078]">
+                  <span className="mt-1 block text-xs leading-5 text-muted">
                     {mood.description}
                   </span>
                 </button>
@@ -545,7 +545,7 @@ function MoodTracker() {
           {/* Selected mood message */}
           <div className="mt-4 min-h-6" aria-live="polite">
             {selectedMoodData && (
-              <p className="text-sm text-[#52745D]">
+              <p className="text-sm text-action">
                 You selected <strong>{selectedMoodData.label}</strong>.
                 Thank yourself for checking in.
               </p>
@@ -553,13 +553,13 @@ function MoodTracker() {
           </div>
 
           {/* Factors */}
-          <div className="mt-8 border-t border-[#EDF0E9] pt-7">
+          <div className="mt-8 border-t border-line pt-7">
             <div>
               <h3 className="font-serif text-xl sm:text-2xl">
                 What's been influencing your mood?
               </h3>
 
-              <p className="mt-2 text-sm text-[#718078]">
+              <p className="mt-2 text-sm text-muted">
                 Choose as many as you like. This section is optional.
               </p>
             </div>
@@ -574,10 +574,10 @@ function MoodTracker() {
                     type="button"
                     onClick={() => toggleFactor(factor)}
                     aria-pressed={isSelected}
-                    className={`rounded-full border px-4 py-2.5 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D] focus-visible:ring-offset-2 ${
+                    className={`rounded-full border px-4 py-2.5 text-sm transition     ${
                       isSelected
-                        ? "border-[#52745D] bg-[#52745D] text-white"
-                        : "border-[#DCE4DA] bg-white text-[#60766E] hover:border-[#8FA995] hover:bg-[#F3F6F0]"
+                        ? "factor-selected"
+                        : "factor-option"
                     }`}
                   >
                     {isSelected ? "✓ " : ""}
@@ -589,7 +589,7 @@ function MoodTracker() {
           </div>
 
           {/* Optional note */}
-          <div className="mt-8 border-t border-[#EDF0E9] pt-7">
+          <div className="mt-8 border-t border-line pt-7">
             <label
               htmlFor="mood-note"
               className="font-serif text-xl sm:text-2xl"
@@ -597,7 +597,7 @@ function MoodTracker() {
               A little more about today
             </label>
 
-            <p className="mt-2 text-sm text-[#718078]">
+            <p className="mt-2 text-sm text-muted">
               Want to put your thoughts into words? You can, but
               you don't have to.
             </p>
@@ -612,10 +612,10 @@ function MoodTracker() {
               }}
               maxLength={1000}
               placeholder="Write anything that's on your mind..."
-              className="mt-4 min-h-32 w-full resize-y rounded-2xl border border-[#DCE4DA] bg-[#FAFAF7] p-4 text-sm leading-7 text-[#304737] outline-none transition placeholder:text-[#9AA59C] focus:border-[#52745D] focus:ring-2 focus:ring-[#DDE8DC] sm:p-5"
+              className="form-input mt-4 min-h-32 w-full resize-y rounded-2xl border p-4 text-sm leading-7 sm:p-5"
             />
 
-            <p className="mt-2 text-right text-xs text-[#8A968C]">
+            <p className="mt-2 text-right text-xs text-faint">
               {note.length}/1000 characters
             </p>
           </div>
@@ -623,13 +623,13 @@ function MoodTracker() {
           {/* Save feedback */}
           <div className="mt-5" aria-live="polite">
             {message && (
-              <p className="rounded-xl border border-[#C8DCC8] bg-[#EFF5EC] px-4 py-3 text-sm text-[#42694B]">
+              <p className="success-soft px-4 py-3 text-sm">
                 ✓ {message}
               </p>
             )}
 
             {saveError && (
-              <p className="rounded-xl border border-[#E8CACA] bg-[#FFF3F1] px-4 py-3 text-sm text-[#A34840]">
+              <p className="error-soft px-4 py-3 text-sm">
                 {saveError}
               </p>
             )}
@@ -640,7 +640,7 @@ function MoodTracker() {
               type="button"
               onClick={saveMood}
               disabled={!selectedMood || saving || loading}
-              className="rounded-full bg-[#3F604B] px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-[#304D3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-full brand-fill px-8 py-3.5 text-sm font-semibold  transition      disabled:cursor-not-allowed disabled:opacity-50"
             >
               {saving
                 ? "Saving your check-in..."
@@ -649,7 +649,7 @@ function MoodTracker() {
                   : "Save today's check-in"}
             </button>
 
-            <p className="text-xs leading-5 text-[#8A968C]">
+            <p className="text-xs leading-5 text-faint">
               Your check-in is saved to your MindEase account.
             </p>
           </div>
@@ -658,7 +658,7 @@ function MoodTracker() {
         {/* Statistics */}
         <section className="mt-9">
           <div className="mb-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#718078]">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
               YOUR JOURNEY
             </p>
 
@@ -666,50 +666,50 @@ function MoodTracker() {
               Little patterns over time
             </h2>
 
-            <p className="mt-2 text-sm text-[#718078]">
+            <p className="mt-2 text-sm text-muted">
               A simple overview of the check-ins you've recorded.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-3xl border border-[#E2E7DE] bg-white p-6 shadow-sm">
-              <p className="text-sm text-[#718078]">
+            <div className="rounded-3xl border border-line surface-card p-6 shadow-sm">
+              <p className="text-sm text-muted">
                 Average mood
               </p>
 
               <div className="mt-4 flex items-end gap-2">
-                <span className="font-serif text-4xl text-[#304737]">
+                <span className="font-serif text-4xl text-ink">
                   {averageMood}
                 </span>
 
-                <span className="mb-1 text-sm text-[#8A968C]">
+                <span className="mb-1 text-sm text-faint">
                   / 5
                 </span>
               </div>
 
-              <p className="mt-3 text-xs leading-5 text-[#8A968C]">
+              <p className="mt-3 text-xs leading-5 text-faint">
                 Based on all your recorded check-ins.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-[#E2E7DE] bg-white p-6 shadow-sm">
-              <p className="text-sm text-[#718078]">
+            <div className="rounded-3xl border border-line surface-card p-6 shadow-sm">
+              <p className="text-sm text-muted">
                 Total check-ins
               </p>
 
               <div className="mt-4">
-                <span className="font-serif text-4xl text-[#304737]">
+                <span className="font-serif text-4xl text-ink">
                   {entries.length}
                 </span>
               </div>
 
-              <p className="mt-3 text-xs leading-5 text-[#8A968C]">
+              <p className="mt-3 text-xs leading-5 text-faint">
                 Every check-in is a moment spent understanding yourself.
               </p>
             </div>
 
-            <div className="rounded-3xl border border-[#E2E7DE] bg-white p-6 shadow-sm">
-              <p className="text-sm text-[#718078]">
+            <div className="rounded-3xl border border-line surface-card p-6 shadow-sm">
+              <p className="text-sm text-muted">
                 Most frequent mood
               </p>
 
@@ -720,11 +720,11 @@ function MoodTracker() {
                   </span>
 
                   <div>
-                    <p className="font-serif text-2xl text-[#304737]">
+                    <p className="font-serif text-2xl text-ink">
                       {mostFrequentMood.label}
                     </p>
 
-                    <p className="text-xs text-[#8A968C]">
+                    <p className="text-xs text-faint">
                       Recorded {mostFrequentMood.count}{" "}
                       {mostFrequentMood.count === 1
                         ? "time"
@@ -733,12 +733,12 @@ function MoodTracker() {
                   </div>
                 </div>
               ) : (
-                <p className="mt-4 font-serif text-2xl text-[#8A968C]">
+                <p className="mt-4 font-serif text-2xl text-faint">
                   Not yet
                 </p>
               )}
 
-              <p className="mt-3 text-xs leading-5 text-[#8A968C]">
+              <p className="mt-3 text-xs leading-5 text-faint">
                 This is simply the mood you've recorded most often.
               </p>
             </div>
@@ -746,18 +746,18 @@ function MoodTracker() {
         </section>
 
         {/* Weekly reflection */}
-        <section className="mt-8 rounded-3xl border border-[#DCE6D9] bg-[#EAF0E6] p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#66806B]">
+        <section className="mt-8 rounded-3xl border border-line tile-brand p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
             A MOMENT TO REFLECT
           </p>
 
-          <h2 className="mt-2 font-serif text-2xl text-[#304737] sm:text-3xl">
+          <h2 className="mt-2 font-serif text-2xl text-ink sm:text-3xl">
             Your recent week
           </h2>
 
           {weeklyEntries.length > 0 ? (
             <>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-[#60766E]">
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-muted">
                 You've recorded {weeklyEntries.length}{" "}
                 {weeklyEntries.length === 1 ? "check-in" : "check-ins"}{" "}
                 in the last seven days.
@@ -771,19 +771,19 @@ function MoodTracker() {
               </p>
 
               {commonWeeklyFactor && (
-                <p className="mt-2 text-sm leading-7 text-[#60766E]">
+                <p className="mt-2 text-sm leading-7 text-muted">
                   <strong>{commonWeeklyFactor}</strong> appeared most
                   often among the factors you selected this week.
                 </p>
               )}
 
-              <p className="mt-3 text-xs leading-5 text-[#718078]">
+              <p className="mt-3 text-xs leading-5 text-muted">
                 These observations describe your recorded entries;
                 they are not a mental health assessment.
               </p>
             </>
           ) : (
-            <p className="mt-3 max-w-xl text-sm leading-7 text-[#60766E]">
+            <p className="mt-3 max-w-xl text-sm leading-7 text-muted">
               Your weekly reflection will appear here once you've
               recorded a check-in. There's no need to rush.
             </p>
@@ -791,10 +791,10 @@ function MoodTracker() {
         </section>
 
         {/* Mood chart */}
-        <section className="mt-9 rounded-3xl border border-[#E2E7DE] bg-white p-5 shadow-sm sm:p-7 md:p-8">
+        <section className="mt-9 rounded-3xl border border-line surface-card p-5 shadow-sm sm:p-7 md:p-8">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#718078]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
                 MOOD HISTORY
               </p>
 
@@ -802,13 +802,13 @@ function MoodTracker() {
                 Your mood over time
               </h2>
 
-              <p className="mt-2 text-sm text-[#718078]">
+              <p className="mt-2 text-sm text-muted">
                 Each bar represents one recorded check-in.
               </p>
             </div>
 
             <div
-              className="flex flex-wrap gap-1 rounded-full bg-[#F3F5F0] p-1"
+              className="flex flex-wrap gap-1 rounded-full tile-brand p-1"
               aria-label="Filter mood chart"
             >
               {chartFilters.map((filter) => (
@@ -817,10 +817,10 @@ function MoodTracker() {
                   type="button"
                   onClick={() => setChartFilter(filter.value)}
                   aria-pressed={chartFilter === filter.value}
-                  className={`rounded-full px-3 py-2 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D] ${
+                  className={`rounded-full px-3 py-2 text-xs font-medium transition    ${
                     chartFilter === filter.value
-                      ? "bg-[#3F604B] text-white shadow-sm"
-                      : "text-[#718078] hover:text-[#304737]"
+                      ? "filter-selected shadow-sm"
+                      : "filter-inactive"
                   }`}
                 >
                   {filter.label}
@@ -830,17 +830,17 @@ function MoodTracker() {
           </div>
 
           {loading ? (
-            <div className="mt-8 flex min-h-64 items-center justify-center text-sm text-[#718078]">
+            <div className="mt-8 flex min-h-64 items-center justify-center text-sm text-muted">
               Loading your mood history...
             </div>
           ) : loadError ? (
-            <div className="mt-8 rounded-2xl bg-[#FFF3F1] p-6 text-center">
-              <p className="text-sm text-[#A34840]">{loadError}</p>
+            <div className="mt-8 rounded-2xl error-soft p-6 text-center">
+              <p className="text-sm text-error">{loadError}</p>
 
               <button
                 type="button"
                 onClick={fetchMoods}
-                className="mt-4 rounded-full bg-[#3F604B] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#304D3B]"
+                className="mt-4 rounded-full brand-fill px-5 py-2.5 text-sm font-medium  "
               >
                 Try again
               </button>
@@ -855,14 +855,14 @@ function MoodTracker() {
                 Your story is just beginning
               </h3>
 
-              <p className="mt-2 max-w-sm text-sm leading-6 text-[#718078]">
+              <p className="mt-2 max-w-sm text-sm leading-6 text-muted">
                 Record a mood check-in and your history will start
                 appearing here.
               </p>
             </div>
           ) : (
             <div className="mt-8">
-              <div className="mb-3 flex justify-between text-xs text-[#8A968C]">
+              <div className="mb-3 flex justify-between text-xs text-faint">
                 <span>Higher mood</span>
                 <span>Scale: 1–5</span>
               </div>
@@ -874,11 +874,11 @@ function MoodTracker() {
                       key={value}
                       className="flex items-center gap-3"
                     >
-                      <span className="w-3 text-xs text-[#8A968C]">
+                      <span className="w-3 text-xs text-faint">
                         {value}
                       </span>
 
-                      <div className="h-px flex-1 border-t border-dashed border-[#E6EBE3]" />
+                      <div className="h-px flex-1 border-t border-dashed border-line" />
                     </div>
                   ))}
                 </div>
@@ -901,14 +901,10 @@ function MoodTracker() {
                         </span>
 
                         <div
-                          className="w-full max-w-10 rounded-t-lg bg-[#78977A] transition-all duration-300 hover:bg-[#3F604B]"
-                          style={{
-                            height: `${(value / 5) * 100}%`,
-                            minHeight: "8px",
-                          }}
+                          className={`w-full max-w-10 rounded-t-lg chart-bar chart-bar-${value} transition-all duration-300`}
                         />
 
-                        <span className="mt-2 whitespace-nowrap text-[10px] text-[#718078] sm:text-xs">
+                        <span className="mt-2 whitespace-nowrap text-[10px] text-muted sm:text-xs">
                           {formatDate(entry.date)}
                         </span>
                       </div>
@@ -917,7 +913,7 @@ function MoodTracker() {
                 </div>
               </div>
 
-              <p className="mt-2 text-center text-xs text-[#8A968C]">
+              <p className="mt-2 text-center text-xs text-faint">
                 Showing up to 14 check-ins for the selected period.
               </p>
             </div>
@@ -925,10 +921,10 @@ function MoodTracker() {
         </section>
 
         {/* Calendar and history */}
-        <section className="mt-9 rounded-3xl border border-[#E2E7DE] bg-white p-5 shadow-sm sm:p-7 md:p-8">
+        <section className="mt-9 rounded-3xl border border-line surface-card p-5 shadow-sm sm:p-7 md:p-8">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#718078]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
                 LOOK BACK GENTLY
               </p>
 
@@ -936,20 +932,20 @@ function MoodTracker() {
                 Your check-in history
               </h2>
 
-              <p className="mt-2 text-sm text-[#718078]">
+              <p className="mt-2 text-sm text-muted">
                 Revisit the moods you've recorded.
               </p>
             </div>
 
-            <div className="flex w-fit gap-1 rounded-full bg-[#F3F5F0] p-1">
+            <div className="flex w-fit gap-1 rounded-full tile-brand p-1">
               <button
                 type="button"
                 onClick={() => setHistoryView("calendar")}
                 aria-pressed={historyView === "calendar"}
                 className={`rounded-full px-4 py-2 text-sm transition ${
                   historyView === "calendar"
-                    ? "bg-[#3F604B] text-white"
-                    : "text-[#718078] hover:text-[#304737]"
+                    ? "brand-fill "
+                    : "filter-inactive"
                 }`}
               >
                 Calendar
@@ -961,8 +957,8 @@ function MoodTracker() {
                 aria-pressed={historyView === "list"}
                 className={`rounded-full px-4 py-2 text-sm transition ${
                   historyView === "list"
-                    ? "bg-[#3F604B] text-white"
-                    : "text-[#718078] hover:text-[#304737]"
+                    ? "brand-fill "
+                    : "filter-inactive"
                 }`}
               >
                 List
@@ -971,11 +967,11 @@ function MoodTracker() {
           </div>
 
           {loading ? (
-            <div className="flex min-h-48 items-center justify-center text-sm text-[#718078]">
+            <div className="flex min-h-48 items-center justify-center text-sm text-muted">
               Loading your entries...
             </div>
           ) : loadError ? (
-            <div className="mt-6 rounded-2xl bg-[#FFF3F1] p-5 text-sm text-[#A34840]">
+            <div className="mt-6 rounded-2xl error-soft p-5 text-sm text-error">
               Your history could not be loaded. Please use the retry
               option above.
             </div>
@@ -989,7 +985,7 @@ function MoodTracker() {
                 No check-ins yet
               </h3>
 
-              <p className="mt-2 max-w-sm text-sm leading-6 text-[#718078]">
+              <p className="mt-2 max-w-sm text-sm leading-6 text-muted">
                 Your recorded moods will appear here. Start with
                 today's check-in whenever you're ready.
               </p>
@@ -1002,17 +998,17 @@ function MoodTracker() {
                   type="button"
                   onClick={() => changeMonth(-1)}
                   aria-label="Previous month"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DCE4DA] text-lg text-[#52745D] transition hover:bg-[#F1F5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D]"
+                  className="flex h-10 w-10 items-center justify-center rounded-full icon-button text-lg transition"
                 >
                   ←
                 </button>
 
                 <div className="text-center">
-                  <h3 className="font-serif text-xl text-[#304737]">
+                  <h3 className="font-serif text-xl text-ink">
                     {formatMonth(calendarMonth)}
                   </h3>
 
-                  <p className="mt-1 text-xs text-[#8A968C]">
+                  <p className="mt-1 text-xs text-faint">
                     {monthEntryCount}{" "}
                     {monthEntryCount === 1 ? "check-in" : "check-ins"}
                   </p>
@@ -1027,7 +1023,7 @@ function MoodTracker() {
                       new Date().getFullYear() &&
                     calendarMonth.getMonth() === new Date().getMonth()
                   }
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DCE4DA] text-lg text-[#52745D] transition hover:bg-[#F1F5EF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D] disabled:cursor-not-allowed disabled:opacity-30"
+                  className="flex h-10 w-10 items-center justify-center rounded-full icon-button text-lg transition disabled:cursor-not-allowed disabled:opacity-30"
                 >
                   →
                 </button>
@@ -1039,7 +1035,7 @@ function MoodTracker() {
                   (day) => (
                     <span
                       key={day}
-                      className="py-2 text-xs font-medium text-[#8A968C]"
+                      className="py-2 text-xs font-medium text-faint"
                     >
                       {day}
                     </span>
@@ -1065,12 +1061,12 @@ function MoodTracker() {
                       onClick={() => setSelectedDate(day.key)}
                       aria-label={`${day.day}${entry ? `, mood ${entry.mood}` : ""}${isToday ? ", today" : ""}`}
                       aria-pressed={isSelected}
-                      className={`flex aspect-square flex-col items-center justify-center rounded-xl border text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D] ${
+                      className={`flex aspect-square flex-col items-center justify-center rounded-xl border text-sm transition    ${
                         isSelected
-                          ? "border-[#52745D] bg-[#EAF1E8] text-[#304737]"
+                          ? "calendar-selected"
                           : isToday
-                            ? "border-[#B8CBB9] bg-[#F7F9F5] text-[#304737]"
-                            : "border-transparent text-[#60766E] hover:border-[#DCE4DA] hover:bg-[#F7F9F5]"
+                            ? "today-highlight"
+                            : "calendar-day"
                       }`}
                     >
                       <span className="font-medium">{day.day}</span>
@@ -1087,9 +1083,9 @@ function MoodTracker() {
                 })}
               </div>
 
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs text-[#8A968C]">
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs text-faint">
                 <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full border border-[#B8CBB9]" />
+                  <span className="h-2.5 w-2.5 rounded-full border border-line-strong" />
                   Today
                 </span>
 
@@ -1097,8 +1093,8 @@ function MoodTracker() {
               </div>
 
               {/* Selected date details */}
-              <div className="mt-7 rounded-2xl border border-[#E2E7DE] bg-[#FAFAF7] p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#8A968C]">
+              <div className="mt-7 rounded-2xl border border-line surface-card p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-faint">
                   SELECTED DAY
                 </p>
 
@@ -1122,11 +1118,11 @@ function MoodTracker() {
                       </span>
 
                       <div>
-                        <p className="font-semibold text-[#304737]">
+                        <p className="font-semibold text-ink">
                           {selectedDateEntry.mood}
                         </p>
 
-                        <p className="text-xs text-[#8A968C]">
+                        <p className="text-xs text-faint">
                           Your recorded mood
                         </p>
                       </div>
@@ -1134,7 +1130,7 @@ function MoodTracker() {
 
                     {(selectedDateEntry.factors || []).length > 0 && (
                       <div className="mt-4">
-                        <p className="text-xs font-medium text-[#718078]">
+                        <p className="text-xs font-medium text-muted">
                           Factors you selected
                         </p>
 
@@ -1142,7 +1138,7 @@ function MoodTracker() {
                           {selectedDateEntry.factors.map((factor) => (
                             <span
                               key={factor}
-                              className="rounded-full bg-[#EAF1E8] px-3 py-1.5 text-xs text-[#52745D]"
+                              className="rounded-full tile-brand px-3 py-1.5 text-xs text-action"
                             >
                               {factor}
                             </span>
@@ -1152,19 +1148,19 @@ function MoodTracker() {
                     )}
 
                     {selectedDateEntry.note && (
-                      <div className="mt-4 border-t border-[#E5EAE2] pt-4">
-                        <p className="text-xs font-medium text-[#718078]">
+                      <div className="mt-4 border-t border-line pt-4">
+                        <p className="text-xs font-medium text-muted">
                           Your note
                         </p>
 
-                        <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-[#52665A]">
+                        <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-muted">
                           {selectedDateEntry.note}
                         </p>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <p className="mt-3 text-sm leading-6 text-[#8A968C]">
+                  <p className="mt-3 text-sm leading-6 text-faint">
                     No mood check-in was recorded on this day.
                   </p>
                 )}
@@ -1188,18 +1184,18 @@ function MoodTracker() {
                     );
                     setHistoryView("calendar");
                   }}
-                  className="flex w-full items-center gap-4 rounded-2xl border border-[#E8ECE5] bg-[#FAFAF7] p-4 text-left transition hover:border-[#B8CBB9] hover:bg-[#F4F7F1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D]"
+                  className="flex w-full items-center gap-4 rounded-2xl history-row p-4 text-left transition"
                 >
                   <span className="text-3xl">
                     {getMoodEmoji(entry.mood)}
                   </span>
 
                   <span className="min-w-0 flex-1">
-                    <span className="block font-semibold text-[#304737]">
+                    <span className="block font-semibold text-ink">
                       {entry.mood}
                     </span>
 
-                    <span className="mt-1 block text-xs text-[#8A968C]">
+                    <span className="mt-1 block text-xs text-faint">
                       {formatDate(entry.date, {
                         weekday: "short",
                         year: "numeric",
@@ -1207,7 +1203,7 @@ function MoodTracker() {
                     </span>
                   </span>
 
-                  <span className="text-sm text-[#718078]">
+                  <span className="text-sm text-muted">
                     View →
                   </span>
                 </button>
@@ -1217,19 +1213,19 @@ function MoodTracker() {
         </section>
 
         {/* Gentle reminder */}
-        <div className="mt-8 rounded-2xl border border-[#E2E7DE] bg-[#F1F4ED] p-5 text-center sm:p-6">
-          <p className="font-serif text-lg text-[#3F604B]">
+        <div className="mt-8 rounded-2xl border border-line tile-brand p-5 text-center sm:p-6">
+          <p className="font-serif text-lg text-brand">
             Every feeling deserves a little space.
           </p>
 
-          <p className="mt-2 text-sm leading-6 text-[#718078]">
+          <p className="mt-2 text-sm leading-6 text-muted">
             Your mood does not define you. These check-ins are simply
             a way to understand yourself a little better.
           </p>
 
           <Link
             to="/journal"
-            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#52745D] transition hover:text-[#304737]"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-action transition "
           >
             Continue with your journal →
           </Link>

@@ -11,7 +11,7 @@ function SectionHeading({
       }`}
     >
       {eyebrow && (
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-[#557486]">
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-brand">
           {eyebrow}
         </p>
       )}
@@ -21,7 +21,7 @@ function SectionHeading({
       </h2>
 
       {description && (
-        <p className="mt-3 max-w-2xl text-lg leading-8 text-[#60766e]">
+        <p className="mt-3 max-w-2xl text-lg leading-8 text-muted">
           {description}
         </p>
       )}

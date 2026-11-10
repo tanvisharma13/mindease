@@ -106,20 +106,20 @@ function HelpSomeone() {
   const [openSection, setOpenSection] = useState(0);
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC]">
+    <div className="min-h-screen page">
       <main className="max-w-5xl mx-auto px-5 sm:px-8 py-12">
 
         {/* 1. Header */}
         <section className="max-w-3xl mb-10">
-          <p className="text-sm font-medium text-[#52745D] mb-3">
+          <p className="text-sm font-medium text-brand mb-3">
             Supporting someone
           </p>
 
-          <h1 className="text-4xl md:text-6xl font-serif text-[#263D31] leading-tight">
+          <h1 className="text-4xl md:text-6xl font-serif text-ink leading-tight">
             Helping someone you care about.
           </h1>
 
-          <p className="mt-5 text-[#718078] text-base md:text-lg leading-8">
+          <p className="mt-5 text-muted text-base md:text-lg leading-8">
             You don't need to have all the answers. Sometimes listening,
             staying present, and helping someone find support can make a real
             difference.
@@ -127,16 +127,16 @@ function HelpSomeone() {
         </section>
 
         {/* Introduction */}
-        <section className="bg-[#DDE8DC] rounded-3xl p-7 md:p-9 mb-8">
-          <p className="text-sm font-medium text-[#52705A]">
+        <section className="tile-brand rounded-3xl p-7 md:p-9 mb-8">
+          <p className="text-sm font-medium text-brand">
             A good place to start
           </p>
 
-          <h2 className="text-2xl md:text-3xl font-serif text-[#294332] mt-2">
+          <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
             Be curious, not corrective.
           </h2>
 
-          <p className="text-sm md:text-base leading-7 text-[#53685A] mt-4 max-w-3xl">
+          <p className="text-sm md:text-base leading-7 text-muted mt-4 max-w-3xl">
             You don't need to diagnose their experience or immediately solve
             the problem. Give them room to speak, listen without judgment, and
             ask what kind of support they would actually find useful.
@@ -144,17 +144,17 @@ function HelpSomeone() {
         </section>
 
         {/* 2. What to Notice + Serious Warning */}
-        <section className="bg-white border border-[#DCE3D9] rounded-3xl p-6 md:p-8 mb-8">
+        <section className="surface-card border border-line rounded-3xl p-6 md:p-8 mb-8">
 
-          <p className="text-sm font-medium text-[#52745D]">
+          <p className="text-sm font-medium text-brand">
             Pay attention
           </p>
 
-          <h2 className="text-2xl md:text-3xl font-serif text-[#304737] mt-2">
+          <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
             Changes worth noticing
           </h2>
 
-          <p className="text-sm text-[#718078] mt-2 leading-6">
+          <p className="text-sm text-muted mt-2 leading-6">
             Changes in someone's behavior can be reasons to check in.
             They do not, by themselves, establish a mental health condition.
           </p>
@@ -163,43 +163,43 @@ function HelpSomeone() {
             {warningSigns.map((item) => (
               <li
                 key={item}
-                className="flex gap-3 text-sm leading-6 text-[#5C6960]"
+                className="flex gap-3 text-sm leading-6 text-muted"
               >
-                <span className="text-[#6C8A72]">•</span>
+                <span className="text-brand-mid">•</span>
                 {item}
               </li>
             ))}
           </ul>
 
           {/* Highlighted Serious Warning */}
-          <div className="mt-7 rounded-2xl bg-[#FAF0E9] border border-[#E8CFC1] p-5 md:p-6">
+          <div className="mt-7 rounded-2xl strip-warm p-5 md:p-6">
 
             <div className="flex items-start gap-3">
               <span className="text-2xl">❤️</span>
 
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#95644F]">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted">
                   Please take this seriously
                 </p>
 
-                <h3 className="text-xl md:text-2xl font-serif text-[#594034] mt-2">
+                <h3 className="text-xl md:text-2xl font-serif text-ink mt-2">
                   When someone says they are a burden or don't want to be here
                 </h3>
 
-                <p className="text-sm leading-7 text-[#705B50] mt-3">
+                <p className="text-sm leading-7 text-muted mt-3">
                   Statements such as "Everyone would be better off without me"
                   or "I don't want to be here anymore" should never be
                   dismissed or taken lightly.
                 </p>
 
-                <p className="text-sm leading-7 text-[#705B50] mt-2">
+                <p className="text-sm leading-7 text-muted mt-2">
                   Listen without judgment, ask directly whether they are
                   thinking about suicide, and help them connect with support.
                 </p>
 
                 <a
                   href="#immediate-safety"
-                  className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#89563F] hover:underline"
+                  className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-brand-dark hover:underline"
                 >
                   Read what to do in this situation ↓
                 </a>
@@ -212,20 +212,20 @@ function HelpSomeone() {
         <section className="mb-8">
 
           <div className="mb-5">
-            <p className="text-sm font-medium text-[#52745D]">
+            <p className="text-sm font-medium text-brand">
               Practical guidance
             </p>
 
-            <h2 className="text-2xl md:text-3xl font-serif text-[#304737] mt-2">
+            <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
               How to talk to them
             </h2>
 
-            <p className="text-sm text-[#718078] mt-2">
+            <p className="text-sm text-muted mt-2">
               Explore these tips whenever you need a little guidance.
             </p>
           </div>
 
-          <div className="bg-white border border-[#DCE3D9] rounded-3xl overflow-hidden">
+          <div className="surface-card border border-line rounded-3xl overflow-hidden">
             {sections.map((section, index) => {
               const isOpen = openSection === index;
               const panelId = `help-section-${index}`;
@@ -233,7 +233,7 @@ function HelpSomeone() {
               return (
                 <div
                   key={section.title}
-                  className="border-b border-[#E4E9E3] last:border-b-0"
+                  className="border-b border-line last:border-b-0"
                 >
                   <button
                     type="button"
@@ -242,19 +242,19 @@ function HelpSomeone() {
                     onClick={() =>
                       setOpenSection(isOpen ? -1 : index)
                     }
-                    className="w-full px-6 md:px-8 py-6 flex items-center justify-between text-left hover:bg-[#FAFBF8] transition"
+                    className="w-full px-6 md:px-8 py-6 flex items-center justify-between text-left hover-cream transition"
                   >
                     <div className="flex items-center gap-4">
-                      <span className="w-11 h-11 rounded-full bg-[#EAF0E8] flex items-center justify-center text-xl shrink-0">
+                      <span className="w-11 h-11 rounded-full tile-brand flex items-center justify-center text-xl shrink-0">
                         {section.icon}
                       </span>
 
                       <div>
-                        <p className="text-xs text-[#7A887E]">
+                        <p className="text-xs text-faint">
                           {String(index + 1).padStart(2, "0")}
                         </p>
 
-                        <h3 className="text-lg md:text-xl font-serif text-[#304737]">
+                        <h3 className="text-lg md:text-xl font-serif text-ink">
                           {section.title}
                         </h3>
                       </div>
@@ -262,7 +262,7 @@ function HelpSomeone() {
 
                     <span
                       aria-hidden="true"
-                      className="text-xl text-[#52745D]"
+                      className="text-xl text-brand"
                     >
                       {isOpen ? "−" : "+"}
                     </span>
@@ -277,9 +277,9 @@ function HelpSomeone() {
                       {section.content.map((item) => (
                         <li
                           key={item}
-                          className="flex items-start gap-3 text-sm leading-6 text-[#5C6960]"
+                          className="flex items-start gap-3 text-sm leading-6 text-muted"
                         >
-                          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#6C8A72] shrink-0" />
+                          <span className="mt-2 w-1.5 h-1.5 rounded-full  shrink-0" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -292,17 +292,17 @@ function HelpSomeone() {
         </section>
 
         {/* 4. Checking In */}
-        <section className="bg-[#EAF0E8] border border-[#DCE3D9] rounded-3xl p-6 md:p-8 mb-8">
+        <section className="tile-brand border border-line rounded-3xl p-6 md:p-8 mb-8">
 
-          <p className="text-sm font-medium text-[#52705A]">
+          <p className="text-sm font-medium text-brand">
             Support doesn't end with one conversation
           </p>
 
-          <h2 className="text-2xl md:text-3xl font-serif text-[#304737] mt-2">
+          <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
             Check in again.
           </h2>
 
-          <p className="text-sm text-[#5C6960] leading-7 mt-3">
+          <p className="text-sm text-muted leading-7 mt-3">
             A small message or a simple invitation can remind someone that
             they haven't been forgotten.
           </p>
@@ -317,9 +317,9 @@ function HelpSomeone() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-sm leading-6 text-[#5C6960]"
+                className="flex items-start gap-3 text-sm leading-6 text-muted"
               >
-                <span className="text-[#6C8A72] mt-1">✓</span>
+                <span className="text-brand-mid mt-1">✓</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -327,9 +327,9 @@ function HelpSomeone() {
         </section>
 
         {/* 5. Self Care - Four Points */}
-        <section className="bg-[#304737] rounded-3xl p-6 md:p-8 mb-8 text-white">
+        <section className="panel-dark rounded-3xl p-6 md:p-8 mb-8 on-dark-strong">
 
-          <p className="text-sm font-medium text-[#BFD1C0]">
+          <p className="text-sm font-medium on-dark-faint">
             Take care of yourself too
           </p>
 
@@ -337,7 +337,7 @@ function HelpSomeone() {
             You don't have to carry this alone.
           </h2>
 
-          <p className="text-sm leading-7 text-[#D0DDD1] mt-3">
+          <p className="text-sm leading-7 on-dark mt-3">
             Supporting someone can be emotionally demanding. Your well-being
             matters too.
           </p>
@@ -346,9 +346,9 @@ function HelpSomeone() {
             {selfCareTips.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-sm leading-6 text-[#D0DDD1]"
+                className="flex items-start gap-3 text-sm leading-6 on-dark"
               >
-                <span className="text-[#BFD1C0]">•</span>
+                <span className="on-dark-faint">•</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -356,7 +356,7 @@ function HelpSomeone() {
 
           <Link
             to="/wellness"
-            className="inline-block mt-5 text-sm font-medium text-[#D8E7D8] hover:underline"
+            className="inline-block mt-5 text-sm font-medium on-dark hover:underline"
           >
             Explore the mental health library →
           </Link>
@@ -365,18 +365,18 @@ function HelpSomeone() {
         {/* 6. Immediate Safety */}
         <section
           id="immediate-safety"
-          className="rounded-3xl border border-[#E4D9D0] bg-[#FAF5F0] p-6 md:p-8 scroll-mt-8"
+          className="rounded-3xl strip-warm p-6 md:p-8 scroll-mt-8"
         >
 
-          <p className="text-sm font-semibold uppercase tracking-wider text-[#95644F]">
+          <p className="text-sm font-semibold uppercase tracking-wider text-muted">
             Important safety information
           </p>
 
-          <h2 className="text-2xl md:text-3xl font-serif text-[#514840] mt-2">
+          <h2 className="text-2xl md:text-3xl font-serif text-ink mt-2">
             If someone may be in immediate danger
           </h2>
 
-          <p className="text-sm leading-7 text-[#665A53] mt-4">
+          <p className="text-sm leading-7 text-muted mt-4">
             Take every expression of suicidal thoughts seriously. If someone
             has a plan to hurt themselves, has already harmed themselves, or
             may act soon, seek emergency assistance.
@@ -384,7 +384,7 @@ function HelpSomeone() {
 
           {/* Safety Steps */}
           <div className="mt-6">
-            <h3 className="font-semibold text-[#514840]">
+            <h3 className="font-semibold text-ink">
               What you can do:
             </h3>
 
@@ -412,14 +412,14 @@ function HelpSomeone() {
                 },
               ].map((step) => (
                 <li key={step.title} className="flex gap-3">
-                  <span className="text-[#9A705A] mt-1">•</span>
+                  <span className="text-muted mt-1">•</span>
 
                   <div>
-                    <p className="text-sm font-semibold text-[#514840]">
+                    <p className="text-sm font-semibold text-ink">
                       {step.title}
                     </p>
 
-                    <p className="text-sm leading-6 text-[#665A53] mt-1">
+                    <p className="text-sm leading-6 text-muted mt-1">
                       {step.description}
                     </p>
                   </div>
@@ -432,60 +432,60 @@ function HelpSomeone() {
           <div className="mt-7 space-y-4">
 
             {/* Tele-MANAS */}
-            <div className="bg-white rounded-2xl p-5 border border-[#E8DDD5]">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#95644F]">
+            <div className="surface-card rounded-2xl p-5 border border-sand">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted">
                 Mental health support
               </p>
 
-              <h3 className="text-xl font-serif text-[#514840] mt-2">
+              <h3 className="text-xl font-serif text-ink mt-2">
                 Tele-MANAS
               </h3>
 
-              <p className="text-sm text-[#665A53] mt-2">
+              <p className="text-sm text-muted mt-2">
                 Free mental health support, available 24 hours a day,
                 7 days a week, in many languages across India.
               </p>
 
               <a
                 href="tel:14416"
-                className="inline-block text-3xl font-semibold text-[#52745D] mt-3 hover:underline"
+                className="inline-block text-3xl font-semibold text-brand mt-3 hover:underline"
               >
                 14416
               </a>
 
-              <p className="text-xs text-[#8A796E] mt-1">
+              <p className="text-xs text-faint mt-1">
                 Tap the number to call.
               </p>
             </div>
 
             {/* Emergency 112 */}
-            <div className="bg-[#F1E3DA] rounded-2xl p-5 border border-[#E4CBBE]">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#95644F]">
+            <div className="strip-warm rounded-2xl p-5 border border-sand">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted">
                 Immediate emergency
               </p>
 
-              <h3 className="text-xl font-serif text-[#514840] mt-2">
+              <h3 className="text-xl font-serif text-ink mt-2">
                 India Emergency Number
               </h3>
 
-              <p className="text-sm text-[#665A53] mt-2">
+              <p className="text-sm text-muted mt-2">
                 Call 112 if someone's life or immediate safety is at risk.
               </p>
 
               <a
                 href="tel:112"
-                className="inline-block text-3xl font-semibold text-[#8D4938] mt-3 hover:underline"
+                className="inline-block text-3xl font-semibold text-brand-dark mt-3 hover:underline"
               >
                 112
               </a>
 
-              <p className="text-xs text-[#8A796E] mt-1">
+              <p className="text-xs text-faint mt-1">
                 India's nationwide emergency response number.
               </p>
             </div>
           </div>
 
-          <p className="text-xs leading-6 text-[#78685E] mt-6">
+          <p className="text-xs leading-6 text-muted mt-6">
             Do not promise to keep an immediate safety risk secret.
             Share necessary information with people who can help protect
             the person. These suggestions are not a substitute for
@@ -495,11 +495,11 @@ function HelpSomeone() {
 
         {/* Closing Note */}
         <section className="text-center py-10">
-          <p className="text-lg font-serif text-[#304737]">
+          <p className="text-lg font-serif text-ink">
             Sometimes, being there is the first step towards helping. 💚
           </p>
 
-          <p className="text-xs text-[#8A968D] mt-3 max-w-xl mx-auto leading-6">
+          <p className="text-xs text-faint mt-3 max-w-xl mx-auto leading-6">
             These suggestions are educational guidance, not a diagnosis
             or treatment plan. You do not have to handle difficult
             situations alone.

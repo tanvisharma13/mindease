@@ -7,8 +7,8 @@ function ProtectedRoute() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F7F4EC]">
-        <p className="text-[#3F604B] text-lg">
+      <div className="page min-h-screen flex items-center justify-center">
+        <p className="text-brand text-lg">
           Loading MindEase...
         </p>
       </div>

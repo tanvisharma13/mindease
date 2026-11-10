@@ -632,13 +632,13 @@ function Journal() {
   const isDeleteDialog = pendingAction?.type === "delete";
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC] px-4 py-10 text-[#304737] md:px-8 md:py-12">
+    <div className="min-h-screen page px-4 py-10 text-ink md:px-8 md:py-12">
       <div className="mx-auto max-w-7xl">
 
         {/* Header */}
         <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
           <div>
-            <p className="mb-2 text-sm font-medium text-[#52745D]">
+            <p className="mb-2 text-sm font-medium text-brand">
               A space for yourself
             </p>
 
@@ -646,7 +646,7 @@ function Journal() {
               Your journal
             </h1>
 
-            <p className="mt-3 text-sm text-[#718078]">
+            <p className="mt-3 text-sm text-muted">
               {entries.length} {entries.length === 1 ? "entry" : "entries"}.
               Your thoughts, at your own pace.
             </p>
@@ -655,7 +655,7 @@ function Journal() {
           <button
             type="button"
             onClick={() => requestAction({ type: "new" })}
-            className="rounded-full bg-[#3F604B] px-7 py-3.5 font-semibold text-white transition hover:bg-[#314C3B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#52745D]"
+            className="rounded-full btn-primary px-7 py-3.5 font-semibold  transition    "
           >
             + New entry
           </button>
@@ -663,15 +663,15 @@ function Journal() {
 
         {/* List / Calendar toggle */}
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-          <div className="inline-flex rounded-full border border-[#DCE3D9] bg-white p-1">
+          <div className="inline-flex rounded-full border border-line surface-card p-1">
             <button
               type="button"
               onClick={() => setViewMode("list")}
               aria-pressed={viewMode === "list"}
               className={`rounded-full px-4 py-2 text-sm font-semibold ${
                 viewMode === "list"
-                  ? "bg-[#3F604B] text-white"
-                  : "text-[#60766E] hover:bg-[#F3F6F1]"
+                  ? "btn-primary "
+                  : "text-muted hover-brand-soft"
               }`}
             >
               List
@@ -683,8 +683,8 @@ function Journal() {
               aria-pressed={viewMode === "calendar"}
               className={`rounded-full px-4 py-2 text-sm font-semibold ${
                 viewMode === "calendar"
-                  ? "bg-[#3F604B] text-white"
-                  : "text-[#60766E] hover:bg-[#F3F6F1]"
+                  ? "btn-primary "
+                  : "text-muted hover-brand-soft"
               }`}
             >
               Calendar
@@ -692,7 +692,7 @@ function Journal() {
           </div>
 
           {draftNotice && (
-            <p role="status" className="text-xs text-[#718078]">
+            <p role="status" className="text-xs text-muted">
               {draftNotice}
             </p>
           )}
@@ -704,10 +704,10 @@ function Journal() {
             role={feedback.type === "error" ? "alert" : "status"}
             className={`mb-5 rounded-xl border px-5 py-3 text-sm ${
               feedback.type === "validation"
-                ? "border-[#EBD8C7] bg-[#FAF0E7] text-[#87664F]"
+                ? "strip-warm text-muted"
                 : feedback.type === "success"
-                  ? "border-[#C9DDCA] bg-[#EDF5EB] text-[#365A4C]"
-                  : "border-red-200 bg-red-50 text-red-700"
+                  ? "success-soft"
+                  : "error-soft"
             }`}
           >
             {feedback.message}
@@ -718,7 +718,7 @@ function Journal() {
         {loadingError && (
           <div
             role="alert"
-            className="mb-5 rounded-xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700"
+            className="mb-5 rounded-xl border border-sand error-soft px-5 py-4 text-sm text-error"
           >
             <p>{loadingError}</p>
 
@@ -734,7 +734,7 @@ function Journal() {
 
         {/* Compact Calendar */}
         {viewMode === "calendar" && (
-          <section className="mx-auto mb-5 max-w-2xl rounded-3xl border border-[#DCE3D9] bg-white p-4 shadow-sm sm:p-5">
+          <section className="mx-auto mb-5 max-w-2xl rounded-3xl border border-line surface-card p-4 shadow-sm sm:p-5">
 
             {/* Calendar Header */}
             <div className="mb-3 flex items-center justify-between">
@@ -742,12 +742,12 @@ function Journal() {
                 type="button"
                 onClick={() => changeCalendarMonth(-1)}
                 aria-label="Previous month"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#DCE3D9] text-[#52745D] transition hover:bg-[#F3F6F1]"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-brand transition hover-brand-soft"
               >
                 ←
               </button>
 
-              <h2 className="font-serif text-xl text-[#304737]">
+              <h2 className="font-serif text-xl text-ink">
                 {calendarMonth.toLocaleDateString(undefined, {
                   month: "long",
                   year: "numeric",
@@ -758,14 +758,14 @@ function Journal() {
                 type="button"
                 onClick={() => changeCalendarMonth(1)}
                 aria-label="Next month"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#DCE3D9] text-[#52745D] transition hover:bg-[#F3F6F1]"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-brand transition hover-brand-soft"
               >
                 →
               </button>
             </div>
 
             {/* Weekday Labels */}
-            <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-semibold text-[#718078]">
+            <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-semibold text-muted">
               {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
                 (day) => (
                   <div key={day} className="py-1.5">
@@ -808,10 +808,10 @@ function Journal() {
                     aria-pressed={isSelected}
                     className={`flex h-9 flex-col items-center justify-center rounded-lg text-xs transition sm:h-10 sm:text-sm ${
                       isSelected
-                        ? "bg-[#3F604B] font-semibold text-white"
+                        ? "tab-selected font-semibold"
                         : hasEntries
-                          ? "bg-[#EAF0E8] font-semibold text-[#304737] hover:bg-[#DDE8DC]"
-                          : "text-[#718078] hover:bg-[#F5F7F3]"
+                          ? "journal-date-recorded font-semibold"
+                          : "journal-date"
                     }`}
                   >
                     <span>{day}</span>
@@ -819,7 +819,7 @@ function Journal() {
                     {hasEntries && (
                       <span
                         className={`mt-0.5 h-1 w-1 rounded-full ${
-                          isSelected ? "bg-white" : "bg-[#557A6A]"
+                          isSelected ? "surface-card" : "journal-date-dot"
                         }`}
                       />
                     )}
@@ -829,8 +829,8 @@ function Journal() {
             </div>
 
             {/* Selected Date Entries */}
-            <div className="mt-4 border-t border-[#E8EDE6] pt-3">
-              <h3 className="font-serif text-base text-[#304737]">
+            <div className="mt-4 border-t border-line pt-3">
+              <h3 className="font-serif text-base text-ink">
                 {new Date(`${calendarDate}T12:00:00`).toLocaleDateString(
                   undefined,
                   { dateStyle: "long" }
@@ -847,13 +847,13 @@ function Journal() {
                         setViewMode("list");
                         requestAction({ type: "select", entry });
                       }}
-                      className="block w-full rounded-xl border border-[#DCE3D9] px-3 py-2.5 text-left transition hover:bg-[#F5F7F3]"
+                      className="block w-full rounded-xl border border-line px-3 py-2.5 text-left transition hover-brand-soft"
                     >
-                      <span className="block text-sm font-semibold text-[#304737]">
+                      <span className="block text-sm font-semibold text-ink">
                         {getEntryTitle(entry)}
                       </span>
 
-                      <span className="mt-1 block text-xs text-[#718078]">
+                      <span className="mt-1 block text-xs text-muted">
                         {entry.content?.slice(0, 75)}
                         {entry.content?.length > 75 ? "..." : ""}
                       </span>
@@ -861,7 +861,7 @@ function Journal() {
                   ))}
                 </div>
               ) : (
-                <p className="mt-1 text-xs text-[#718078]">
+                <p className="mt-1 text-xs text-muted">
                   No entries for this date.
                 </p>
               )}
@@ -880,12 +880,12 @@ function Journal() {
               }`}
             >
               {/* Daily prompt */}
-              <div className="rounded-3xl border border-[#EADFCF] bg-[#F7F1E8] p-6">
-                <p className="text-sm font-medium text-[#9B785D]">
+              <div className="rounded-3xl border border-sand strip-warm p-6">
+                <p className="text-sm font-medium text-muted">
                   Today's prompt
                 </p>
 
-                <p className="mt-4 font-serif text-xl italic leading-8 text-[#604F43]">
+                <p className="mt-4 font-serif text-xl italic leading-8 text-ink">
                   {prompt}
                 </p>
 
@@ -893,7 +893,7 @@ function Journal() {
                   <button
                     type="button"
                     onClick={() => requestAction({ type: "prompt" })}
-                    className="text-sm font-semibold text-[#365A4C] underline underline-offset-4"
+                    className="text-sm font-semibold text-brand underline underline-offset-4"
                   >
                     Write to this
                   </button>
@@ -901,7 +901,7 @@ function Journal() {
                   <button
                     type="button"
                     onClick={showAnotherPrompt}
-                    className="text-sm font-medium text-[#8A725F] underline underline-offset-4"
+                    className="text-sm font-medium text-muted underline underline-offset-4"
                   >
                     Show another prompt
                   </button>
@@ -912,9 +912,9 @@ function Journal() {
               <button
                 type="button"
                 onClick={() => requestAction({ type: "short" })}
-                className="flex w-full items-center gap-4 rounded-2xl border border-[#DCE3D9] bg-white p-5 text-left transition hover:border-[#A7B9A8]"
+                className="flex w-full items-center gap-4 rounded-2xl border border-line surface-card p-5 text-left transition hover-line-strong"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#EAF0E8] text-xl">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl tile-brand text-xl">
                   ✍️
                 </span>
 
@@ -923,7 +923,7 @@ function Journal() {
                     Just one line
                   </span>
 
-                  <span className="mt-1 block text-sm text-[#718078]">
+                  <span className="mt-1 block text-sm text-muted">
                     A small thought is enough.
                   </span>
                 </span>
@@ -939,11 +939,11 @@ function Journal() {
                   {[1, 2, 3].map((item) => (
                     <div
                       key={item}
-                      className="motion-safe:animate-pulse rounded-2xl border border-[#E3E8E0] bg-white p-5"
+                      className="motion-safe:animate-pulse rounded-2xl border border-line surface-card p-5"
                     >
-                      <div className="h-4 w-2/3 rounded bg-[#E5EAE3]" />
-                      <div className="mt-3 h-3 w-1/3 rounded bg-[#EDF0EA]" />
-                      <div className="mt-4 h-3 w-full rounded bg-[#EDF0EA]" />
+                      <div className="h-4 w-2/3 rounded skeleton-line" />
+                      <div className="mt-3 h-3 w-1/3 rounded skeleton-line" />
+                      <div className="mt-4 h-3 w-full rounded skeleton-line" />
                     </div>
                   ))}
                 </div>
@@ -965,19 +965,19 @@ function Journal() {
                       aria-current={active ? "true" : undefined}
                       className={`w-full rounded-2xl border p-5 text-left transition ${
                         active
-                          ? "border-[#557A6A] bg-[#E8EEE9]"
-                          : "border-[#DCE3D9] bg-white hover:border-[#AEBEB6]"
+                          ? "journal-entry-active"
+                          : "journal-entry"
                       }`}
                     >
                       <span className="block font-semibold">
                         {getEntryTitle(entry)}
                       </span>
 
-                      <span className="mt-1 block text-xs text-[#718078]">
+                      <span className="mt-1 block text-xs text-muted">
                         {formatShortDate(entry.entryDate)}
                       </span>
 
-                      <span className="mt-3 block line-clamp-2 text-sm leading-6 text-[#718078]">
+                      <span className="mt-3 block line-clamp-2 text-sm leading-6 text-muted">
                         {entry.content}
                       </span>
                     </button>
@@ -985,14 +985,14 @@ function Journal() {
                 })}
 
               {!loading && !loadingError && entries.length === 0 && (
-                <div className="rounded-2xl border border-dashed border-[#D8DDD7] bg-white p-7 text-center">
+                <div className="rounded-2xl border border-dashed border-line surface-card p-7 text-center">
                   <span className="text-4xl">📖</span>
 
                   <p className="mt-4 font-serif text-xl">
                     Your journal is waiting.
                   </p>
 
-                  <p className="mt-2 text-sm leading-6 text-[#718078]">
+                  <p className="mt-2 text-sm leading-6 text-muted">
                     Start with a small reflection. Even one line is enough.
                   </p>
                 </div>
@@ -1001,16 +1001,16 @@ function Journal() {
 
             {/* Main content */}
             <section
-              className={`min-w-0 rounded-3xl border border-[#DCE3D9] bg-white ${
+              className={`min-w-0 rounded-3xl border border-line surface-card ${
                 mobileView === "list" ? "hidden lg:block" : "block"
               }`}
             >
               {/* Mobile back button */}
-              <div className="border-b border-[#E8EDE6] px-5 py-4 lg:hidden">
+              <div className="border-b border-line px-5 py-4 lg:hidden">
                 <button
                   type="button"
                   onClick={() => setMobileView("list")}
-                  className="text-sm font-semibold text-[#52745D] hover:underline"
+                  className="text-sm font-semibold text-brand hover:underline"
                 >
                   ← All entries
                 </button>
@@ -1021,7 +1021,7 @@ function Journal() {
                 <div className="flex min-h-[420px] flex-col">
                   <div className="flex-1 p-6 md:p-9">
                     {isShortEntry && (
-                      <p className="mb-5 text-sm text-[#718078]">
+                      <p className="mb-5 text-sm text-muted">
                         No need to write a lot. Just start wherever you are.
                       </p>
                     )}
@@ -1032,7 +1032,7 @@ function Journal() {
                       onChange={(event) => updateTitle(event.target.value)}
                       placeholder="Give this entry a title..."
                       aria-label="Journal entry title"
-                      className="w-full border-b border-[#DCE3D9] bg-transparent py-4 font-serif text-3xl outline-none placeholder:text-[#A1AAA5] focus-visible:ring-2 focus-visible:ring-[#52745D]/20"
+                      className="journal-field w-full border-b border-line py-4 font-serif text-3xl"
                     />
 
                     <textarea
@@ -1045,7 +1045,7 @@ function Journal() {
                       }
                       aria-label="Journal entry content"
                       rows={isShortEntry ? 2 : 12}
-                      className={`mt-6 w-full resize-y border-none bg-transparent font-serif text-lg leading-9 outline-none placeholder:text-[#9AA6A0] focus-visible:ring-2 focus-visible:ring-[#52745D]/20 ${
+                      className={`journal-field mt-6 w-full resize-y border-none font-serif text-lg leading-9 ${
                         isShortEntry
                           ? "min-h-[100px]"
                           : "min-h-[320px] md:min-h-[400px]"
@@ -1054,19 +1054,19 @@ function Journal() {
                     />
 
                     {isShortEntry && (
-                      <p className="mt-2 text-xs text-[#8A968D]">
+                      <p className="mt-2 text-xs text-faint">
                         You can always write more if you feel like it.
                       </p>
                     )}
                   </div>
 
                   {/* Sticky action bar */}
-                  <div className="sticky bottom-0 z-10 flex justify-end gap-3 rounded-b-3xl border-t border-[#E8EDE6] bg-white/95 px-5 py-4 backdrop-blur-sm md:px-9">
+                  <div className="sticky bottom-0 z-10 flex justify-end gap-3 rounded-b-3xl border-t border-line surface-card px-5 py-4 backdrop-blur-sm md:px-9">
                     <button
                       type="button"
                       onClick={() => requestAction({ type: "cancel" })}
                       disabled={saving}
-                      className="rounded-full border border-[#D8DDD7] px-6 py-3 font-semibold text-[#60766E] hover:bg-[#F5F7F3] disabled:opacity-50"
+                      className="rounded-full border border-line px-6 py-3 font-semibold text-muted hover-brand-soft disabled:opacity-50"
                     >
                       Cancel
                     </button>
@@ -1075,7 +1075,7 @@ function Journal() {
                       type="button"
                       onClick={saveEntry}
                       disabled={saving}
-                      className="rounded-full bg-[#3F604B] px-6 py-3 font-semibold text-white hover:bg-[#314C3B] disabled:opacity-60"
+                      className="rounded-full btn-primary px-6 py-3 font-semibold   disabled:opacity-60"
                     >
                       {saving
                         ? "Saving..."
@@ -1096,19 +1096,19 @@ function Journal() {
                         {getEntryTitle(selectedEntry)}
                       </h2>
 
-                      <p className="mt-2 text-sm text-[#718078]">
+                      <p className="mt-2 text-sm text-muted">
                         {formatLongDate(selectedEntry.entryDate)}
                       </p>
 
                       {/* Mood association */}
-                      <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-[#F3F6F1] px-4 py-3">
+                      <div className="mt-4 inline-flex items-center gap-2 rounded-2xl tile-brand px-4 py-3">
                         {selectedEntryMood ? (
                           <>
                             <span className="text-xl">
                               {moodDetails[selectedEntryMood.mood]?.emoji || "🙂"}
                             </span>
 
-                            <span className="text-sm text-[#52745D]">
+                            <span className="text-sm text-brand">
                               Mood recorded that day:{" "}
                               <strong>
                                 {moodDetails[selectedEntryMood.mood]?.label ||
@@ -1117,7 +1117,7 @@ function Journal() {
                             </span>
                           </>
                         ) : (
-                          <span className="text-sm text-[#718078]">
+                          <span className="text-sm text-muted">
                             No mood recorded that day.
                           </span>
                         )}
@@ -1133,7 +1133,7 @@ function Journal() {
                             entry: selectedEntry,
                           })
                         }
-                        className="rounded-xl bg-[#E8EEE9] px-4 py-2 text-sm font-semibold text-[#365A4C] hover:bg-[#DDE8DC]"
+                        className="rounded-xl tile-brand px-4 py-2 text-sm font-semibold text-brand hover-brand-soft"
                       >
                         Edit
                       </button>
@@ -1142,14 +1142,14 @@ function Journal() {
                         type="button"
                         onClick={() => handleDelete(selectedEntry._id)}
                         disabled={deleting}
-                        className="rounded-xl border border-[#EADFCF] px-4 py-2 text-sm font-medium text-[#8A725F] hover:bg-[#FAF5F0] disabled:opacity-50"
+                        className="rounded-xl border border-sand px-4 py-2 text-sm font-medium text-muted  disabled:opacity-50"
                       >
                         {deleting ? "Deleting..." : "Delete"}
                       </button>
                     </div>
                   </div>
 
-                  <div className="mt-10 whitespace-pre-wrap font-serif text-lg leading-9 text-[#34433D]">
+                  <div className="mt-10 whitespace-pre-wrap font-serif text-lg leading-9 text-ink">
                     {selectedEntry.content}
                   </div>
                 </div>
@@ -1164,7 +1164,7 @@ function Journal() {
                     A quiet space for your thoughts
                   </h2>
 
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-[#718078]">
+                  <p className="mt-2 max-w-sm text-sm leading-6 text-muted">
                     Select an entry or start writing something new. There is
                     no right or wrong way to use your journal.
                   </p>
@@ -1172,7 +1172,7 @@ function Journal() {
                   <button
                     type="button"
                     onClick={() => requestAction({ type: "new" })}
-                    className="mt-6 rounded-full bg-[#3F604B] px-6 py-3 font-semibold text-white hover:bg-[#314C3B]"
+                    className="mt-6 rounded-full btn-primary px-6 py-3 font-semibold  "
                   >
                     Start writing
                   </button>
@@ -1185,14 +1185,14 @@ function Journal() {
 
       {/* Restore draft dialog */}
       {draftCandidate && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#18231F]/50 p-4">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center dialog-backdrop p-4">
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="draft-title"
-            className="w-full max-w-md rounded-3xl border border-[#DCE3D9] bg-[#F7F4EC] p-7 shadow-2xl"
+            className="w-full max-w-md rounded-3xl border border-line page p-7 shadow-2xl"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EAF0E8] text-2xl">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl tile-brand text-2xl">
               📝
             </div>
 
@@ -1200,7 +1200,7 @@ function Journal() {
               An unfinished draft was found
             </h2>
 
-            <p className="mt-3 text-sm leading-7 text-[#718078]">
+            <p className="mt-3 text-sm leading-7 text-muted">
               A draft from this browser tab is available. It is stored locally
               in this tab's session and has not been sent to your account.
               Restore it to continue, or discard it.
@@ -1210,7 +1210,7 @@ function Journal() {
               <button
                 type="button"
                 onClick={discardRecoveredDraft}
-                className="rounded-full border border-[#A7B9A8] px-6 py-3 text-sm font-semibold text-[#52745D] hover:bg-[#EAF0E8]"
+                className="rounded-full border border-line-strong px-6 py-3 text-sm font-semibold text-brand hover-brand-soft"
               >
                 Discard draft
               </button>
@@ -1219,7 +1219,7 @@ function Journal() {
                 type="button"
                 onClick={restoreDraft}
                 disabled={loading}
-                className="rounded-full bg-[#3F604B] px-6 py-3 text-sm font-semibold text-white disabled:opacity-60"
+                className="rounded-full btn-primary px-6 py-3 text-sm font-semibold  disabled:opacity-60"
               >
                 {loading ? "Loading entries..." : "Restore draft"}
               </button>
@@ -1230,15 +1230,15 @@ function Journal() {
 
       {/* Discard / Delete confirmation */}
       {pendingAction && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#18231F]/50 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center dialog-backdrop p-4">
           <div
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="confirm-title"
             aria-describedby="confirm-description"
-            className="w-full max-w-md rounded-3xl border border-[#DCE3D9] bg-[#F7F4EC] p-7 shadow-2xl"
+            className="w-full max-w-md rounded-3xl border border-line page p-7 shadow-2xl"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#EAF0E8] text-2xl">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl tile-brand text-2xl">
               {isDeleteDialog ? "📖" : "✍️"}
             </div>
 
@@ -1250,7 +1250,7 @@ function Journal() {
 
             <p
               id="confirm-description"
-              className="mt-3 text-sm leading-7 text-[#718078]"
+              className="mt-3 text-sm leading-7 text-muted"
             >
               {isDeleteDialog
                 ? "This journal entry will be permanently deleted. You won't be able to recover it."
@@ -1261,7 +1261,7 @@ function Journal() {
               <button
                 type="button"
                 onClick={() => setPendingAction(null)}
-                className="rounded-full border border-[#A7B9A8] px-6 py-3 text-sm font-semibold text-[#52745D] hover:bg-[#EAF0E8]"
+                className="rounded-full border border-line-strong px-6 py-3 text-sm font-semibold text-brand hover-brand-soft"
               >
                 {isDeleteDialog ? "Keep it" : "Keep writing"}
               </button>
@@ -1273,7 +1273,7 @@ function Journal() {
                     ? confirmDelete
                     : confirmPendingAction
                 }
-                className="rounded-full border border-[#D8C7B9] px-6 py-3 text-sm font-medium text-[#8A725F] hover:bg-[#F2E9E1]"
+                className="rounded-full border border-sand px-6 py-3 text-sm font-medium text-muted hover-sand"
               >
                 {isDeleteDialog ? "Delete" : "Discard"}
               </button>
