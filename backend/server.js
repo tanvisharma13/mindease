@@ -12,6 +12,7 @@ const authRoutes = require("./routes/authRoutes");
 const moodRoutes = require("./routes/moodRoutes");
 const journalRoutes = require("./routes/journalRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 const app = express();
 
@@ -44,6 +45,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/moods", moodRoutes);
 app.use("/api/journal", journalRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/moods", moodRoutes);
+app.use("/api/journal", journalRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/chat", chatRoutes);
 
 // Handle unknown routes
 app.use((req, res) => {
